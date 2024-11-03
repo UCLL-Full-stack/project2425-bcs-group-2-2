@@ -16,7 +16,9 @@ const createCourse = ({
         length,
         rating,
     });
-    return course;
+    
+    return courseDb.createCourse(course);
+   
 };
 
 const getAllCourses = async (): Promise<Course[]> => courseDb.getAllCourses();

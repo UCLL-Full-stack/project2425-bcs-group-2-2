@@ -12,4 +12,4 @@ userRouter.get('/', async (req: Request, res: Response) => {
     }
 });
 
-export default userRouter;
+export {userRouter};

@@ -17,7 +17,7 @@ const courseRouter = express.Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Course'  // Reference to the Course schema
+ *                 $ref: '#/components/schemas/Course'  # Reference to the Course schema
  *       500:
  *         description: Internal server error
  */
@@ -30,6 +30,7 @@ courseRouter.get('/', async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 /**
  * @swagger
  * /courses:
@@ -49,15 +50,15 @@ courseRouter.get('/', async (req: Request, res: Response) => {
  *             schema:
  *               $ref: '#/components/schemas/Course'
  */
-
 courseRouter.post('/', async (req: Request, res: Response) => {
     try {
         const courseInput: CourseInput = req.body;
         const newCourse = await courseService.createCourse(courseInput);
+        res.status(200).json(newCourse);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
 
-export default courseRouter;
+export {courseRouter};

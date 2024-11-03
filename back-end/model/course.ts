@@ -1,10 +1,10 @@
 export class Course {
-    private id?: number;
-    private name?: string;
-    private creationDate?: Date;
-    private difficultyLevel?: number;
-    private length?: number;
-    private rating?: number;
+    public id?: number;
+    public name?: string;
+    public creationDate?: Date;
+    public difficultyLevel?: number;
+    public length?: number;
+    public rating?: number;
 
     constructor(course: {
         id?: number;
