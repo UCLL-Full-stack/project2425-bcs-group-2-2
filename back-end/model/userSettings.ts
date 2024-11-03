@@ -1,8 +1,8 @@
 export class UserSettings {
-    private id?: number;
-    private theme: string;
-    private notificationsEnabled: boolean;
-    private language: string;
+    public id?: number;
+    public theme: string;
+    public notificationsEnabled: boolean;
+    public language: string;
 
     constructor(settings: {
         id?: number;

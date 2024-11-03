@@ -20,7 +20,7 @@ const getAllUsers = (): User[] => users;
 
 const getUserById = (id: number): User | undefined => users.find((user) => user.getId() === id);
 
-export default { getAllUsers, getUserById };
+export default { createUser, getAllUsers, getUserById };
 
 // new User({
 //     id: currentUserId++,

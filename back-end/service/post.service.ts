@@ -8,7 +8,7 @@ const createPost = ({ likes, description, uploadDate }: PostInput): Post => {
         description,
         uploadDate,
     });
-    return post;
+    return postDb.createPost(post);
 };
 const getAllPosts = async (): Promise<Post[]> => postDb.getAllPosts();
 

@@ -45,4 +45,4 @@ const getAllPosts = (): Post[] => posts;
 
 const getPostById = (id: number): Post | undefined => posts.find((post) => post.getId() === id);
 
-export default { getAllPosts, getPostById };
+export default { createPost, getAllPosts, getPostById };

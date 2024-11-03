@@ -9,7 +9,7 @@ const createUser = ({ name, age, email, bio }: UserInput): User => {
         email,
         bio,
     });
-    return user;
+    return userDb.createUser(user);
 };
 
 const getAllUsers = async (): Promise<User[]> => userDb.getAllUsers();
@@ -20,4 +20,4 @@ const getUserById = async (id: number): Promise<User> => {
     return user;
 };
 
-export default { getAllUsers, getUserById };
+export default { getAllUsers, getUserById, createUser };

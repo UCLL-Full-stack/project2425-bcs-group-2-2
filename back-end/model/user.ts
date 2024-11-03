@@ -1,10 +1,10 @@
 export class User {
-    private id?: number;
-    private name?: string;
-    private age?: number;
-    private email?: string;
-    private bio?: string;
-    private creationDate?: Date;
+    public id?: number;
+    public name?: string;
+    public age?: number;
+    public email?: string;
+    public bio?: string;
+    public creationDate?: Date;
 
     constructor(user: {
         id?: number;

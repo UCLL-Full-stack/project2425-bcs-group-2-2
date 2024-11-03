@@ -1,8 +1,8 @@
 export class Post {
-    private id?: number; // Optional
-    private likes?: number; // Optional
-    private description?: string; // Optional
-    private uploadDate?: Date; // Optional
+    public id?: number; // Optional
+    public likes?: number; // Optional
+    public description?: string; // Optional
+    public uploadDate?: Date; // Optional
 
     constructor(post: {
         id?: number; // Optional
