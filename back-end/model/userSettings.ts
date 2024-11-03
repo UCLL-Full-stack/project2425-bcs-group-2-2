@@ -9,8 +9,7 @@ export class UserSettings {
         theme: string;
         notificationsEnabled: boolean;
         language: string;
-    }) 
-    {
+    }) {
         this.id = settings.id;
         this.theme = settings.theme;
         this.notificationsEnabled = settings.notificationsEnabled;
