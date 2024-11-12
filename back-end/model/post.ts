@@ -1,14 +1,14 @@
 export class Post {
     public id?: number; // Optional
-    public likes?: number; // Optional
-    public description?: string; // Optional
-    public uploadDate?: Date; // Optional
+    public likes: number; // Optional
+    public description: string; // Optional
+    public uploadDate: Date; // Optional
 
     constructor(post: {
         id?: number; // Optional
-        likes?: number; // Optional
-        description?: string; // Optional
-        uploadDate?: Date; // Optional
+        likes: number; // Optional
+        description: string; // Optional
+        uploadDate: Date; // Optional
     }) {
         this.id = post.id;
         this.likes = post.likes;
@@ -41,12 +41,12 @@ export class Post {
         this.id = id;
     }
 
-    setDescription(description: string | undefined): void {
+    setDescription(description: string): void {
         // Accepts undefined
         this.description = description;
     }
 
-    setUploadDate(uploadDate: Date | undefined): void {
+    setUploadDate(uploadDate: Date): void {
         // Accepts undefined
         this.uploadDate = uploadDate;
     }

@@ -5,12 +5,16 @@ let currentUserId = 1;
 
 const users: User[] = [];
 
-const createUser = ({ name, age, email, bio }: UserInput): User => {
+const createUser = ({ name, password, age, email, bio, creationDate, userSettings, posts}: User): User => {
     const user = new User({
         name,
+        password,
         age,
         email,
         bio,
+        creationDate,
+        userSettings,
+        posts
     });
     users.push(user);
     return user;

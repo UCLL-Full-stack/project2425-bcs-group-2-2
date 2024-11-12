@@ -1,18 +1,18 @@
 export class Course {
     public id?: number;
-    public name?: string;
-    public creationDate?: Date;
-    public difficultyLevel?: number;
-    public length?: number;
-    public rating?: number;
+    public name: string;
+    public creationDate: Date;
+    public difficultyLevel: number;
+    public length: number;
+    public rating: number;
 
     constructor(course: {
         id?: number;
-        name?: string;
-        creationDate?: Date;
-        difficultyLevel?: number;
-        length?: number;
-        rating?: number;
+        name: string;
+        creationDate: Date;
+        difficultyLevel: number;
+        length: number;
+        rating: number;
     }) {
         this.id = course.id;
         this.name = course.name;
@@ -59,12 +59,12 @@ export class Course {
         this.name = name;
     }
 
-    setCreationDate(creationDate: Date | undefined): void {
+    setCreationDate(creationDate: Date): void {
         // Accepts undefined
         this.creationDate = creationDate;
     }
 
-    setDifficultyLevel(difficultyLevel: number | undefined): void {
+    setDifficultyLevel(difficultyLevel: number): void {
         // Accepts undefined
         if (difficultyLevel !== undefined && (difficultyLevel < 1 || difficultyLevel > 5)) {
             throw new Error('Difficulty level must be between 1 and 5.');
@@ -72,7 +72,7 @@ export class Course {
         this.difficultyLevel = difficultyLevel;
     }
 
-    setLength(length: number | undefined): void {
+    setLength(length: number): void {
         // Accepts undefined
         if (length !== undefined && length < 0) {
             throw new Error('Length must be a positive number.');
@@ -80,7 +80,7 @@ export class Course {
         this.length = length;
     }
 
-    setRating(rating: number | undefined): void {
+    setRating(rating: number): void {
         // Accepts undefined
         if (rating !== undefined && (rating < 1 || rating > 10)) {
             throw new Error('Rating must be between 1 and 10.');

@@ -1,25 +1,37 @@
+import { Post } from "./post";
+import { UserSettings } from "./userSettings";
+
 export class User {
     public id?: number;
-    public name?: string;
-    public age?: number;
-    public email?: string;
-    public bio?: string;
-    public creationDate?: Date;
+    public name: string;
+    public password: string;
+    public age: number;
+    public email: string;
+    public bio: string;
+    public creationDate: Date;
+    public userSettings: UserSettings;
+    public posts: Post[];
 
     constructor(user: {
         id?: number;
-        name?: string;
-        age?: number;
-        email?: string;
-        bio?: string;
-        creationDate?: Date;
+        name: string;
+        password: string;
+        age: number;
+        email: string;
+        bio: string;
+        creationDate: Date;
+        userSettings: UserSettings;
+        posts: Post[];
     }) {
         this.id = user.id;
         this.name = user.name;
+        this.password = user.password;
         this.age = user.age;
         this.email = user.email;
         this.bio = user.bio;
         this.creationDate = user.creationDate || new Date();
+        this.userSettings = user.userSettings;
+        this.posts = user.posts;
     }
 
     // Getters
@@ -29,6 +41,10 @@ export class User {
 
     getName(): string | undefined {
         return this.name;
+    }
+
+    getPassword(): string | undefined {
+        return this.password;
     }
 
     getAge(): number | undefined {
@@ -47,6 +63,10 @@ export class User {
         return this.creationDate;
     }
 
+    getUserSettings(): UserSettings {
+        return this.userSettings;
+    }
+
     // Setters
     setId(id: number): void {
         this.id = id;
@@ -56,15 +76,15 @@ export class User {
         this.name = name;
     }
 
-    setAge(age: number | undefined): void {
+    setAge(age: number): void {
         this.age = age;
     }
 
-    setEmail(email: string | undefined): void {
+    setEmail(email: string): void {
         this.email = email;
     }
 
-    setBio(bio: string | undefined): void {
+    setBio(bio: string): void {
         this.bio = bio;
     }
 

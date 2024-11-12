@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import userService from '../service/user.service';
 import { UserInput } from '../types';
 
@@ -53,14 +53,13 @@ userRouter.get('/', async (req: Request, res: Response) => {
  *             schema:
  *               $ref: '#/components/schemas/User'
  */
-userRouter.post('/', async (req: Request, res: Response) => {
+userRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const userInput: UserInput = req.body;
-        const newUser = await userService.createUser(userInput);
-        res.status(200).json(newUser);
+        const user = <UserInput>req.body;
+        const result = await userService.createUser(user);
+        res.status(200).json(result);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+        next(error);
     }
 });
 
