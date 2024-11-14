@@ -1,3 +1,7 @@
+import {
+    Post as PostPrisma
+} from '@prisma/client';
+
 export class Post {
     public id?: number; // Optional
     public likes: number; // Optional
@@ -9,6 +13,7 @@ export class Post {
         likes: number; // Optional
         description: string; // Optional
         uploadDate: Date; // Optional
+
     }) {
         this.id = post.id;
         this.likes = post.likes;
@@ -49,5 +54,19 @@ export class Post {
     setUploadDate(uploadDate: Date): void {
         // Accepts undefined
         this.uploadDate = uploadDate;
+    }
+
+    static from ({
+        id,
+        likes,
+        description,
+        uploadDate,
+    }: PostPrisma) {
+        return new Post({
+            id,
+            likes,
+            description,
+            uploadDate,
+    })
     }
 }

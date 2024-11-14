@@ -1,3 +1,6 @@
+import {
+    Course as CoursePrisma
+} from '@prisma/client';
 export class Course {
     public id?: number;
     public name: string;
@@ -86,5 +89,23 @@ export class Course {
             throw new Error('Rating must be between 1 and 10.');
         }
         this.rating = rating;
+    }
+
+    static from({
+        id,
+        name,
+        creationDate,
+        difficultyLevel,
+        length,
+        rating
+    }: CoursePrisma) {
+        return new Course({
+            id,
+            name,
+            creationDate,
+            difficultyLevel,
+            length,
+            rating
+        })
     }
 }

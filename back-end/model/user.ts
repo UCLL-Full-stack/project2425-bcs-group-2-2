@@ -1,5 +1,13 @@
+import {
+    User as UserPrisma,
+    UserSettings as UserSettingsPrisma,
+    Post as PostPrisma,
+    Course as CoursePrisma
+} from '@prisma/client';
+import { Course } from "./course";
 import { Post } from "./post";
 import { UserSettings } from "./userSettings";
+
 
 export class User {
     public id?: number;
@@ -10,7 +18,9 @@ export class User {
     public bio: string;
     public creationDate: Date;
     public userSettings: UserSettings;
+    public courses: Course[];
     public posts: Post[];
+
 
     constructor(user: {
         id?: number;
@@ -21,6 +31,7 @@ export class User {
         bio: string;
         creationDate: Date;
         userSettings: UserSettings;
+        courses: Course[];
         posts: Post[];
     }) {
         this.id = user.id;
@@ -31,7 +42,9 @@ export class User {
         this.bio = user.bio;
         this.creationDate = user.creationDate || new Date();
         this.userSettings = user.userSettings;
+        this.courses = user.courses;
         this.posts = user.posts;
+
     }
 
     // Getters
@@ -67,6 +80,8 @@ export class User {
         return this.userSettings;
     }
 
+
+
     // Setters
     setId(id: number): void {
         this.id = id;
@@ -90,5 +105,35 @@ export class User {
 
     setCreationDate(creationDate: Date): void {
         this.creationDate = creationDate;
+    }
+
+    setCourse(course: Course): void{
+        this.courses.push(course);
+    }
+
+    static from ({
+        id,
+        name,
+        password,
+        age,
+        email,
+        bio,
+        creationDate,
+        userSettings,
+        courses,
+        posts
+    }: UserPrisma & {userSettings: UserSettingsPrisma; courses: CoursePrisma[]; posts: PostPrisma[]}) {
+        return new User({
+            id,
+            name,
+            password,
+            age,
+            email,
+            bio,
+            creationDate,
+            userSettings: UserSettings.from(userSettings),
+            courses: courses.map((course:any)=>Course.from(course)),
+            posts: posts.map((post:any)=>Course.from(post))
+    })
     }
 }

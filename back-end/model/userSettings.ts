@@ -1,3 +1,7 @@
+import {
+    UserSettings as UserSettingsPrisma
+} from '@prisma/client';
+
 export class UserSettings {
     public id?: number;
     public theme: string;
@@ -42,5 +46,20 @@ export class UserSettings {
 
     setLanguage(language: string): void {
         this.language = language;
+    }
+
+
+    static from ({
+        id,
+        theme,
+        notificationsEnabled,
+        language
+    }: UserSettingsPrisma) {
+        return new UserSettings({
+            id,
+            theme,
+            notificationsEnabled,
+            language
+    })
     }
 }

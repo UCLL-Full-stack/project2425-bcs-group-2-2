@@ -33,6 +33,18 @@ userRouter.get('/', async (req: Request, res: Response) => {
     }
 });
 
+userRouter.put('/:userId/courses/:courseId', async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const userId = parseInt(req.params.userId);
+        const courseId = parseInt(req.params.courseId);
+        userService.putUserCoursesById(userId, courseId);
+
+        res.status(200).json("the course was successfuly saved by the user");
+    }    catch (error) {
+        next(error);
+    }
+});
+
 
 /**
  * @swagger
@@ -64,3 +76,5 @@ userRouter.post('/', async (req: Request, res: Response, next: NextFunction) => 
 });
 
 export {userRouter};
+
+
