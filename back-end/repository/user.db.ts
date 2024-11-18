@@ -34,8 +34,6 @@ const getUserById = async (id: number): Promise<User | null> => {
 };
 
 const createUser = async ({name, password, age, email, bio, creationDate}: User): Promise<User> => {
-
-
     const newUserPrisma = await prisma.user.create({
         data: {
             name,

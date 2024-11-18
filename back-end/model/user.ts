@@ -62,7 +62,7 @@ export class User {
         userSettings,
         courses,
         posts
-    }: UserPrisma & {userSettings: UserSettingsPrisma; courses: CoursePrisma[]; posts: PostPrisma[]}) {
+    }: UserPrisma & {userSettings: UserSettingsPrisma | null; courses: CoursePrisma[]; posts: PostPrisma[]}) {
         return new User({
             id,
             name,
@@ -71,7 +71,7 @@ export class User {
             email,
             bio,
             creationDate,
-            userSettings: UserSettings.from(userSettings),
+            userSettings: userSettings ? UserSettings.from(userSettings) : undefined,
             courses: courses.map((course:any)=>Course.from(course)),
             posts: posts.map((post:any)=>Post.from(post))
     })
