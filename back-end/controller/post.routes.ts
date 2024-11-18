@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import postService from '../service/post.service';
+// import postService from '../service/post.service';
 import { PostInput } from '../types';
 
 const postRouter = express.Router();
@@ -23,15 +23,15 @@ const postRouter = express.Router();
  *         description: Internal server error
  */
 
-postRouter.get('/', async (req: Request, res: Response) => {
-    try {
-        const posts = await postService.getAllPosts();
-        res.status(200).json(posts);
-    } catch (error) {
-        console.error('Error fetching posts:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+// postRouter.get('/', async (req: Request, res: Response) => {
+//     try {
+//         const posts = await postService.getAllPosts();
+//         res.status(200).json(posts);
+//     } catch (error) {
+//         console.error('Error fetching posts:', error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
 
 
 /**
@@ -53,15 +53,15 @@ postRouter.get('/', async (req: Request, res: Response) => {
  *             schema:
  *               $ref: '#/components/schemas/Post'
  */
-postRouter.post('/', async (req: Request, res: Response) => {
-    try {
-        const postInput: PostInput = req.body;
-        const newPost = await postService.createPost(postInput);
-        res.status(200).json(newPost);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
+// postRouter.post('/', async (req: Request, res: Response) => {
+//     try {
+//         const postInput: PostInput = req.body;
+//         const newPost = await postService.createPost(postInput);
+//         res.status(200).json(newPost);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Internal server error' });
+//     }
+// });
 
 export {postRouter};

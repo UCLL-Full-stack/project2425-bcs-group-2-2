@@ -7,7 +7,6 @@ import swaggerUi from 'swagger-ui-express';
 import  {courseRouter}  from './controller/course.routes';
 import {postRouter} from './controller/post.routes';
 import {userRouter} from './controller/user.routes';
-import {userSettingsRouter} from './controller/userSettings.routes'
 
 
 
@@ -35,10 +34,10 @@ const swaggerOpts = {
     apis: ['./controller/*.routes.ts'],
 };
 
-app.use("/posts", postRouter);
-app.use("/courses", courseRouter);
+// app.use("/posts", postRouter);
+// app.use("/courses", courseRouter);
 app.use("/users", userRouter);
-app.use("/settings", userSettingsRouter);
+// app.use("/settings", userSettingsRouter);
 
 
 

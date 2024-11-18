@@ -17,9 +17,9 @@ export class User {
     public email: string;
     public bio: string;
     public creationDate: Date;
-    public userSettings: UserSettings;
-    public courses: Course[];
-    public posts: Post[];
+    public userSettings?: UserSettings;
+    public courses?: Course[];
+    public posts?: Post[];
 
 
     constructor(user: {
@@ -30,9 +30,9 @@ export class User {
         email: string;
         bio: string;
         creationDate: Date;
-        userSettings: UserSettings;
-        courses: Course[];
-        posts: Post[];
+        userSettings?: UserSettings;
+        courses?: Course[];
+        posts?: Post[];
     }) {
         this.id = user.id;
         this.name = user.name;
@@ -47,68 +47,8 @@ export class User {
 
     }
 
-    // Getters
-    getId(): number | undefined {
-        return this.id;
-    }
-
     getName(): string | undefined {
         return this.name;
-    }
-
-    getPassword(): string | undefined {
-        return this.password;
-    }
-
-    getAge(): number | undefined {
-        return this.age;
-    }
-
-    getEmail(): string | undefined {
-        return this.email;
-    }
-
-    getBio(): string | undefined {
-        return this.bio;
-    }
-
-    getCreationDate(): Date | undefined {
-        return this.creationDate;
-    }
-
-    getUserSettings(): UserSettings {
-        return this.userSettings;
-    }
-
-
-
-    // Setters
-    setId(id: number): void {
-        this.id = id;
-    }
-
-    setName(name: string): void {
-        this.name = name;
-    }
-
-    setAge(age: number): void {
-        this.age = age;
-    }
-
-    setEmail(email: string): void {
-        this.email = email;
-    }
-
-    setBio(bio: string): void {
-        this.bio = bio;
-    }
-
-    setCreationDate(creationDate: Date): void {
-        this.creationDate = creationDate;
-    }
-
-    setCourse(course: Course): void{
-        this.courses.push(course);
     }
 
     static from ({
@@ -133,7 +73,7 @@ export class User {
             creationDate,
             userSettings: UserSettings.from(userSettings),
             courses: courses.map((course:any)=>Course.from(course)),
-            posts: posts.map((post:any)=>Course.from(post))
+            posts: posts.map((post:any)=>Post.from(post))
     })
     }
 }

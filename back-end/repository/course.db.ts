@@ -12,6 +12,8 @@ const getAllCourses = async (): Promise<Course[]> => {
     return coursesPrisma.map((coursePrisma) => Course.from(coursePrisma))
 }
 
+// const createCourse = async ()
 
 
-export default { createCourse, getAllCourses, getCourseById };
+
+// export default { createCourse, getAllCourses, getCourseById };

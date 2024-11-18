@@ -4,7 +4,6 @@ import {
 export class Course {
     public id?: number;
     public name: string;
-    public creationDate: Date;
     public difficultyLevel: number;
     public length: number;
     public rating: number;
@@ -12,14 +11,12 @@ export class Course {
     constructor(course: {
         id?: number;
         name: string;
-        creationDate: Date;
         difficultyLevel: number;
         length: number;
         rating: number;
     }) {
         this.id = course.id;
         this.name = course.name;
-        this.creationDate = course.creationDate;
         this.difficultyLevel = course.difficultyLevel;
         this.length = course.length;
         this.rating = course.rating;
@@ -33,10 +30,7 @@ export class Course {
         return this.name;
     }
 
-    getCreationDate(): Date | undefined {
-        // Can return undefined
-        return this.creationDate;
-    }
+
 
     getDifficultyLevel(): number | undefined {
         // Can return undefined
@@ -62,10 +56,6 @@ export class Course {
         this.name = name;
     }
 
-    setCreationDate(creationDate: Date): void {
-        // Accepts undefined
-        this.creationDate = creationDate;
-    }
 
     setDifficultyLevel(difficultyLevel: number): void {
         // Accepts undefined
@@ -94,7 +84,6 @@ export class Course {
     static from({
         id,
         name,
-        creationDate,
         difficultyLevel,
         length,
         rating
@@ -102,7 +91,6 @@ export class Course {
         return new Course({
             id,
             name,
-            creationDate,
             difficultyLevel,
             length,
             rating

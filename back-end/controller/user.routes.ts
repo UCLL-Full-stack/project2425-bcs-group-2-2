@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import userService from '../service/user.service';
 import { UserInput } from '../types';
+import { User } from '@prisma/client';
 
 const userRouter = express.Router();
 
@@ -33,17 +34,17 @@ userRouter.get('/', async (req: Request, res: Response) => {
     }
 });
 
-userRouter.put('/:userId/courses/:courseId', async (req: Request, res: Response, next: NextFunction) => {
-    try{
-        const userId = parseInt(req.params.userId);
-        const courseId = parseInt(req.params.courseId);
-        userService.putUserCoursesById(userId, courseId);
+// userRouter.put('/:userId/courses/:courseId', async (req: Request, res: Response, next: NextFunction) => {
+//     try{
+//         const userId = parseInt(req.params.userId);
+//         const courseId = parseInt(req.params.courseId);
+//         userService.putUserCoursesById(userId, courseId);
 
-        res.status(200).json("the course was successfuly saved by the user");
-    }    catch (error) {
-        next(error);
-    }
-});
+//         res.status(200).json("the course was successfuly saved by the user");
+//     }    catch (error) {
+//         next(error);
+//     }
+// });
 
 
 /**
@@ -65,6 +66,7 @@ userRouter.put('/:userId/courses/:courseId', async (req: Request, res: Response,
  *             schema:
  *               $ref: '#/components/schemas/User'
  */
+
 userRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = <UserInput>req.body;
@@ -74,6 +76,8 @@ userRouter.post('/', async (req: Request, res: Response, next: NextFunction) => 
         next(error);
     }
 });
+
+
 
 export {userRouter};
 

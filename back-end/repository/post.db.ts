@@ -5,4 +5,4 @@ let currentPostId = 1;
 
 
 
-export default { createPost, getAllPosts, getPostById };
+// export default { createPost, getAllPosts, getPostById };

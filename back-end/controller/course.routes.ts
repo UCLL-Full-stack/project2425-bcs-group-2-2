@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import courseService from '../service/course.service';
+// import courseService from '../service/course.service';
 import { CourseInput } from '../types';
 
 const courseRouter = express.Router();
@@ -21,15 +21,15 @@ const courseRouter = express.Router();
  *       500:
  *         description: Internal server error
  */
-courseRouter.get('/', async (req: Request, res: Response) => {
-    try {
-        const courses = await courseService.getAllCourses();
-        res.status(200).json(courses);
-    } catch (error) {
-        console.error('Error fetching courses:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+// courseRouter.get('/', async (req: Request, res: Response) => {
+//     try {
+//         const courses = await courseService.getAllCourses();
+//         res.status(200).json(courses);
+//     } catch (error) {
+//         console.error('Error fetching courses:', error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
 
 /**
  * @swagger
@@ -50,15 +50,15 @@ courseRouter.get('/', async (req: Request, res: Response) => {
  *             schema:
  *               $ref: '#/components/schemas/Course'
  */
-courseRouter.post('/', async (req: Request, res: Response) => {
-    try {
-        const courseInput: CourseInput = req.body;
-        const newCourse = await courseService.createCourse(courseInput);
-        res.status(200).json(newCourse);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
+// courseRouter.post('/', async (req: Request, res: Response) => {
+//     try {
+//         const courseInput: CourseInput = req.body;
+//         const newCourse = await courseService.createCourse(courseInput);
+//         res.status(200).json(newCourse);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Internal server error' });
+//     }
+// });
 
 export {courseRouter};

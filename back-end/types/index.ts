@@ -16,15 +16,16 @@ type UserInput = {
     creationDate: Date;
     userSettings:  UserSettingsInput;
     posts: PostInput[];
+    courses: CourseInput[];
 };
 
 type CourseInput = {
     id?: number;
     name: string;
-    creationDate: Date;
     difficultyLevel: number;
     length: number;
     rating: number;
+    posts: PostInput[]
 };
 
 type UserSettingsInput = {

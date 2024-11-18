@@ -15,7 +15,7 @@ model User {
     email           String
     bio             String
     creationDate    DateTime @default(now())
-    userSettings    UserSettings     @relation(fields: [userSettingsId], references: [id])
+    userSettings    UserSettings?    @relation(fields: [userSettingsId], references: [id])
     userSettingsId  Int              @unique
     courses         Course[]
     posts           Post[]
@@ -33,7 +33,6 @@ model Post {
 model Course {
     id              Int      @id @default(autoincrement())
     name            String
-    creationDate    DateTime @default(now())
     difficultyLevel Int
     length          Int
     rating          Int
