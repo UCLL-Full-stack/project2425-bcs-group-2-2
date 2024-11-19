@@ -1,24 +1,31 @@
 import {
-    Post as PostPrisma
+    Post as PostPrisma,
+    Course as CoursePrisma
 } from '@prisma/client';
+
+import { Course } from "./course";
+
 
 export class Post {
     public id?: number; // Optional
     public likes: number; // Optional
     public description: string; // Optional
     public uploadDate: Date; // Optional
+    public course?: Course;
 
     constructor(post: {
         id?: number; // Optional
         likes: number; // Optional
         description: string; // Optional
         uploadDate: Date; // Optional
+        course?: Course;
 
     }) {
         this.id = post.id;
         this.likes = post.likes;
         this.description = post.description;
         this.uploadDate = post.uploadDate;
+        this.course = post.course;
     }
 
     // Getters
@@ -61,12 +68,14 @@ export class Post {
         likes,
         description,
         uploadDate,
-    }: PostPrisma) {
+        course
+    }: PostPrisma & {course: CoursePrisma} ) {
         return new Post({
             id,
             likes,
             description,
             uploadDate,
+            course: Course.from(course)
     })
     }
 }

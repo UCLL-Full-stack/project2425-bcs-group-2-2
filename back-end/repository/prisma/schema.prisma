@@ -28,6 +28,8 @@ model Post {
     uploadDate      DateTime @default(now())
     user            User     @relation(fields: [userId], references: [id])
     userId          Int
+    course          Course   @relation(fields: [courseId], references: [id])
+    courseId        Int
 }
 
 model Course {
@@ -37,6 +39,7 @@ model Course {
     length          Int
     rating          Int
     users           User[]
+    posts           Post[]
 }
 
 model UserSettings {
