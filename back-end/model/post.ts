@@ -69,13 +69,13 @@ export class Post {
         description,
         uploadDate,
         course
-    }: PostPrisma & {course: CoursePrisma} ) {
+    }: PostPrisma & {course: CoursePrisma | null} ) {
         return new Post({
             id,
             likes,
             description,
             uploadDate,
-            course: Course.from(course)
+            course: course ? Course.from(course) : undefined
     })
     }
 }

@@ -56,7 +56,10 @@ const main = async () => {
             uploadDate: new Date(),
             user: {
                 connect: { id: 1 },  // Connect to user with ID 1
-            }
+            },
+            course: {
+                connect: { id: course1.id }, // Correctly associate the post with the course
+            },
         }
     });
 };

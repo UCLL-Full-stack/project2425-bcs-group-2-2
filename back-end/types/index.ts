@@ -4,6 +4,7 @@ type PostInput = {
     likes: number;
     description: string;
     uploadDate: Date;
+    course: CourseInput
 };
 
 type UserInput = {
