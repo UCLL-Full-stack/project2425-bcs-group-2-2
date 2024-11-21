@@ -27,15 +27,6 @@ const Home: React.FC = () => {
           />
           <h1 className="text-2xl">Welcome!</h1>
         </div>
-
-        <div>
-          <p>
-            Courses lets you see as a lecturer all the courses you are teaching
-            and as a student all the courses you are enrolled in. <br />
-            You can also see when the courses are scheduled and the students
-            enrolled in each course.
-          </p>
-        </div>
       </main>
     </>
   );
