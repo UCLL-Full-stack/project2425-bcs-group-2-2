@@ -4,7 +4,6 @@ import { PostInput } from '../types';
 
 const postRouter = express.Router();
 
-
 /**
  * @swagger
  * /posts:
@@ -33,10 +32,9 @@ const postRouter = express.Router();
 //     }
 // });
 
-
 /**
  * @swagger
- * /courses:
+ * /posts:
  *   post:
  *     summary: Create a new post
  *     requestBody:
@@ -64,4 +62,4 @@ const postRouter = express.Router();
 //     }
 // });
 
-export {postRouter};
+export { postRouter };

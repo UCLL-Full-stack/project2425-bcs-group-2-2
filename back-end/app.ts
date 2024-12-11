@@ -4,19 +4,15 @@ import cors from 'cors';
 import * as bodyParser from 'body-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import  {courseRouter}  from './controller/course.routes';
-import {postRouter} from './controller/post.routes';
-import {userRouter} from './controller/user.routes';
-
-
+import { courseRouter } from './controller/course.routes';
+import { postRouter } from './controller/post.routes';
+import { userRouter } from './controller/user.routes';
 
 const app = express();
 dotenv.config();
 const port = process.env.APP_PORT || 3000;
 
 app.use(cors({ origin: 'http://localhost:8080' }));
-
-
 
 app.use(bodyParser.json());
 
@@ -35,13 +31,9 @@ const swaggerOpts = {
 };
 
 // app.use("/posts", postRouter);
-// app.use("/courses", courseRouter);
-app.use("/users", userRouter);
+app.use('/courses', courseRouter);
+app.use('/users', userRouter);
 // app.use("/settings", userSettingsRouter);
-
-
-
-
 
 const swaggerSpec = swaggerJSDoc(swaggerOpts);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

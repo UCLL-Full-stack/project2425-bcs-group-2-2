@@ -1,5 +1,6 @@
 import Header from "@/components/header";
 import Head from "next/head";
+import CourseHeader from "@/components/coursesHeader";
 
 const Lecturers: React.FC = () => {
   return (
@@ -11,7 +12,7 @@ const Lecturers: React.FC = () => {
       <main className="d-flex flex-column justify-content-center align-items-center">
         <h1>Courses</h1>
         <section>
-          <h2>Courses overview</h2>
+          <CourseHeader />
         </section>
       </main>
     </>
