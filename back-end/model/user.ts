@@ -11,7 +11,7 @@ import { UserSettings } from "./userSettings";
 
 export class User {
     public id?: number;
-    public name: string;
+    public username: string;
     public password: string;
     public age: number;
     public email: string;
@@ -24,7 +24,7 @@ export class User {
 
     constructor(user: {
         id?: number;
-        name: string;
+        username: string;
         password: string;
         age: number;
         email: string;
@@ -35,7 +35,7 @@ export class User {
         posts?: Post[];
     }) {
         this.id = user.id;
-        this.name = user.name;
+        this.username = user.username;
         this.password = user.password;
         this.age = user.age;
         this.email = user.email;
@@ -47,13 +47,13 @@ export class User {
 
     }
 
-    getName(): string | undefined {
-        return this.name;
+    getUsername(): string | undefined {
+        return this.username;
     }
 
     static from ({
         id,
-        name,
+        username,
         password,
         age,
         email,
@@ -65,7 +65,7 @@ export class User {
     }: UserPrisma & {userSettings: UserSettingsPrisma | null; courses: CoursePrisma[]; posts: PostPrisma[]}) {
         return new User({
             id,
-            name,
+            username,
             password,
             age,
             email,

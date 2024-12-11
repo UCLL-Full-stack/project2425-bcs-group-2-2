@@ -9,7 +9,7 @@ type PostInput = {
 
 type UserInput = {
     id?: number;
-    name: string;
+    username: string;
     password: string;
     age: number;
     email: string;
@@ -36,4 +36,9 @@ type UserSettingsInput = {
     language: string;
 };
 
-export { CourseInput, PostInput, UserInput, UserSettingsInput };
+type AuthenticationResponse = {
+    token: string;
+    username: string;
+}
+
+export { CourseInput, AuthenticationResponse, PostInput, UserInput, UserSettingsInput };

@@ -16,9 +16,11 @@ const getAllUsers = async (): Promise<User[]> => {
     return usersPrisma.map((userPrisma)=>User.from(userPrisma))
 };
 
-const getUserById = async (id: number): Promise<User | null> => {
+
+
+const getUserByUsername = async (username: string): Promise<User | null> => {
     const userPrisma = await prisma.user.findUnique({
-        where: { id },
+        where: { username },
         include: {
             userSettings: true,
             courses:true,
@@ -27,42 +29,44 @@ const getUserById = async (id: number): Promise<User | null> => {
     });
 
     if (!userPrisma) {
+        console.log(`User with username "${username}" does not exist in the database.`);
         return null;
     }
-
     return User.from(userPrisma);
 };
 
-const createUser = async ({name, password, age, email, bio, creationDate}: User): Promise<User> => {
-    const newUserPrisma = await prisma.user.create({
-        data: {
-            name,
-            password,
-            age,
-            email,
-            bio,
-            creationDate,
-            userSettings: {
-                create: {
-                    theme: 'dark',
-                    notificationsEnabled: true,
-                    language: 'en',
+const createUser = async ({username, password, age, email, bio, creationDate}: User): Promise<User> => {
+    console.log("test")
+    try {
+        const newUserPrisma = await prisma.user.create({
+            data: {
+                username,
+                password,
+                age,
+                email,
+                bio : "",
+                creationDate,
+                userSettings: {
+                    create: {
+                        theme: 'dark',
+                        notificationsEnabled: true,
+                        language: 'en',
+                    },
                 },
             },
-        },
-        include: {
-            userSettings: true, 
-            courses: true,      
-            posts: true,        
-        },
-    });
-
-    return User.from(newUserPrisma);
+            include: {
+                userSettings: true, 
+                courses: true,      
+                posts: true,        
+            },
+        });
+    
+        return User.from(newUserPrisma);
+    } catch (error) {
+        console.log(error);
+        throw new Error("Database error")
+    }
 };
 
 
-
-
-
-
-export default {getAllUsers, getUserById, createUser };
+export default {getAllUsers, createUser, getUserByUsername};
