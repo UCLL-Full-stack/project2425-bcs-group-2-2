@@ -15,7 +15,6 @@ type UserInput = {
     email: string;
     bio: string;
     creationDate: Date;
-    userSettings:  UserSettingsInput;
     posts: PostInput[];
     courses: CourseInput[];
 };
@@ -29,16 +28,11 @@ type CourseInput = {
     posts: PostInput[]
 };
 
-type UserSettingsInput = {
-    id?: number;
-    theme: string;
-    notificationsEnabled: boolean;
-    language: string;
-};
+
 
 type AuthenticationResponse = {
     token: string;
     username: string;
 }
 
-export { CourseInput, AuthenticationResponse, PostInput, UserInput, UserSettingsInput };
+export { CourseInput, AuthenticationResponse, PostInput, UserInput };

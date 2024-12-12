@@ -3,7 +3,6 @@ import { User } from '../model/user';
 import { UserInput } from '../types';
 import { AuthenticationResponse } from '../types';
 
-import { UserSettings } from '../model/userSettings';
 import bcrypt from 'bcrypt';
 import { generateJwtToken } from '../util/jwt';
 

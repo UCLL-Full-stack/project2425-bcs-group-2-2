@@ -8,7 +8,6 @@ const prisma = new PrismaClient();
 const getAllUsers = async (): Promise<User[]> => {
     const usersPrisma = await prisma.user.findMany({
         include: {
-            userSettings: true, 
             courses: true,      
             posts: true,       
         },
@@ -22,7 +21,6 @@ const getUserByUsername = async (username: string): Promise<User | null> => {
     const userPrisma = await prisma.user.findUnique({
         where: { username },
         include: {
-            userSettings: true,
             courses:true,
             posts: true,
         },
@@ -46,16 +44,8 @@ const createUser = async ({username, password, age, email, bio, creationDate}: U
                 email,
                 bio : "",
                 creationDate,
-                userSettings: {
-                    create: {
-                        theme: 'dark',
-                        notificationsEnabled: true,
-                        language: 'en',
-                    },
-                },
             },
             include: {
-                userSettings: true, 
                 courses: true,      
                 posts: true,        
             },

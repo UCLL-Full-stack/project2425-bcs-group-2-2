@@ -15,8 +15,6 @@ model User {
     email           String
     bio             String
     creationDate    DateTime @default(now())
-    userSettings    UserSettings    @relation(fields: [userSettingsId], references: [id])
-    userSettingsId  Int              @unique
     courses         Course[]
     posts           Post[]
 }
@@ -40,12 +38,4 @@ model Course {
     rating          Int
     users           User[]
     posts           Post[]
-}
-
-model UserSettings {
-    id                      Int      @id @default(autoincrement())
-    theme                   String
-    notificationsEnabled    Boolean
-    language                String
-    user                    User?
 }

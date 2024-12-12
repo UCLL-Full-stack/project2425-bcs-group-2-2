@@ -57,7 +57,6 @@ const swaggerOpts = {
 // app.use("/posts", postRouter);
 // app.use("/courses", courseRouter);
 app.use("/users", userRouter);
-// app.use("/settings", userSettingsRouter);
 
 
 
