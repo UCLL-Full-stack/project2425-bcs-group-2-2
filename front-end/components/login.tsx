@@ -59,7 +59,7 @@ const LoginWindow: React.FC = () => {
         },
       ]);      
 
-      localStorage.setItem("loggedInUser", username);
+      sessionStorage.setItem("loggedInUser", username);
       setTimeout(() => {
         router.push('/');
       }, 2000);
