@@ -56,32 +56,67 @@ const getCoursesWithRatingGreaterThan = async (rating: number): Promise<Course[]
     return coursesPrisma.map((coursePrisma) => Course.from(coursePrisma));
 };
 
-const createCourse = async ({ name, difficultyLevel, length, rating }: Course): Promise<Course> => {
+const createCourse = async ({
+    name,
+    difficultyLevel,
+    length,
+    rating,
+    description,
+    materials,
+    instructions,
+}: Course): Promise<Course> => {
     try {
-        const newCoursePrisma = await prisma.course.create({
-            data: {
-                name,
-                difficultyLevel,
-                length,
-                rating,
-            },
-            include: {
-                users: true,
-                posts: true,
-            },
+        const result = await prisma.$transaction(async (prisma) => {
+            const newCourse = await prisma.course.create({
+                data: {
+                    name,
+                    difficultyLevel,
+                    length,
+                    rating,
+                    description,
+                    materials,
+                    instructions,
+                },
+            });
+
+            return newCourse;
         });
 
-        return Course.from(newCoursePrisma);
+        return Course.from(result);
     } catch (error) {
-        console.error('Error creating course:', error);
-        throw new Error('Failed to create course.');
+        console.error('Error creating course and details:', error);
+        throw new Error('Failed to create course and its details.');
     }
 };
 
+const deleteCourse = async (id: number) => {
+    // Check if the course exists
+    const courseExists = await prisma.course.findUnique({
+        where: { id },
+    });
+
+    if (!courseExists) {
+        throw new Error(`Course with ID ${id} does not exist.`);
+    }
+
+    // Proceed to delete
+    await prisma.course.delete({
+        where: { id },
+    });
+
+    return `Course ${id} deleted`;
+};
+
+const deleteAllCourses = async () => {
+    await prisma.course.deleteMany();
+    return `courses deleted!`;
+};
 export default {
     getAllCourses,
     getCourseById,
     getCoursesWithRatingGreaterThan,
     getCourseByDifficulty,
     createCourse,
+    deleteCourse,
+    deleteAllCourses,
 };

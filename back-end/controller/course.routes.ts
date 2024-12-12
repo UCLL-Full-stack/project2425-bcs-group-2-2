@@ -31,6 +31,18 @@
  *            posts:
  *              type: array
  *              description: Course posts.
+ *            description:
+ *              type: string
+ *              description: Course description.
+ *            materials:
+ *              type: array
+ *              description: Materials needed.
+ *            instructions:
+ *              type: array
+ *              description: Instructions for course.
+ *            tips:
+ *              type: string
+ *              description: Extra tips.
  */
 
 import express, { NextFunction, Request, Response } from 'express';
@@ -58,6 +70,34 @@ courseRouter.get('/', async (req: Request, res: Response, next: NextFunction) =>
     try {
         const courses = await courseService.getAllCourses();
         res.status(200).json(courses);
+    } catch (error) {
+        next(error);
+    }
+});
+
+/**
+ * @swagger
+ * /courses:
+ *   delete:
+ *     summary: Delete all courses.
+ *     responses:
+ *       200:
+ *         description: All courses have been deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "All courses have been deleted successfully."
+ *       500:
+ *         description: Internal server error.
+ */
+courseRouter.delete('/', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        await courseService.deleteAllCourses();
+        res.status(200).json({ message: 'All courses have been deleted successfully.' });
     } catch (error) {
         next(error);
     }
@@ -217,9 +257,61 @@ courseRouter.get('/:level', async (req: Request, res: Response, next: NextFuncti
 
 /**
  * @swagger
+ * /courses/details/{id}:
+ *   get:
+ *     summary: Get a course with its details by id.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the course to retrieve
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A course with its details.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 course:
+ *                   $ref: '#/components/schemas/Course'
+ *                 courseDetails:
+ *                   $ref: '#/components/schemas/CourseDetails'
+ *       404:
+ *         description: Course or course details not found.
+ *       500:
+ *         description: Internal server error.
+ */
+courseRouter.get('/details', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        console.log();
+        const { id } = req.params;
+        console.log(id);
+        const courseId = Number(id);
+
+        if (isNaN(courseId)) {
+            return res.status(400).json({ error: 'Invalid course ID.' });
+        }
+
+        const course = await courseService.getCourseById(courseId);
+
+        if (!course) {
+            return res.status(404).json({ error: 'Course or course details not found.' });
+        }
+
+        res.status(200).json(course);
+    } catch (error) {
+        next(error);
+    }
+});
+
+/**
+ * @swagger
  * /courses:
  *   post:
- *     summary: Create a new course.
+ *     summary: Create a new course along with its details.
  *     requestBody:
  *       required: true
  *       content:
@@ -239,14 +331,33 @@ courseRouter.get('/:level', async (req: Request, res: Response, next: NextFuncti
  *               rating:
  *                 type: number
  *                 description: Rating of the course (1-10).
+ *               description:
+ *                 type: string
+ *                 description: Description of the course details.
+ *               materials:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   description: Materials required for the course.
+ *               instructions:
+ *                  type: array
+ *                  items:
+ *                   type: string
+ *                   description: Step-by-step instructions for the course.
+ *               tips:
+ *                  type: string
+ *                  description: Additional tips for the course.
  *             required:
  *               - name
  *               - difficultyLevel
  *               - length
  *               - rating
+ *               - description
+ *               - materials
+ *               - instructions
  *     responses:
  *       201:
- *         description: Successfully created a course.
+ *         description: Successfully created a course and its details.
  *         content:
  *           application/json:
  *             schema:
@@ -258,41 +369,80 @@ courseRouter.get('/:level', async (req: Request, res: Response, next: NextFuncti
  */
 courseRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { name, difficultyLevel, length, rating } = req.body;
+        const { name, difficultyLevel, length, rating, description, materials, instructions } =
+            req.body;
 
-        if (!name || typeof name !== 'string') {
-            return res.status(400).json({ error: 'Invalid course name.' });
+        if (!description || typeof description !== 'string') {
+            return res.status(400).json({ error: 'Invalid description for course details.' });
         }
-        if (
-            !difficultyLevel ||
-            typeof difficultyLevel !== 'number' ||
-            difficultyLevel < 1 ||
-            difficultyLevel > 5
-        ) {
-            return res
-                .status(400)
-                .json({ error: 'Invalid difficulty level. Must be a number between 1 and 5.' });
+        if (!Array.isArray(materials) || materials.some((item) => typeof item !== 'string')) {
+            return res.status(400).json({ error: 'Invalid materials for course details.' });
         }
-        if (!length || typeof length !== 'number' || length <= 0) {
-            return res.status(400).json({ error: 'Invalid length. Must be a positive number.' });
-        }
-        if (!rating || typeof rating !== 'number' || rating < 1 || rating > 10) {
-            return res
-                .status(400)
-                .json({ error: 'Invalid rating. Must be a number between 1 and 10.' });
+        if (!Array.isArray(instructions) || instructions.some((item) => typeof item !== 'string')) {
+            return res.status(400).json({ error: 'Invalid instructions for course details.' });
         }
 
+        // Call service to create course and course details
         const newCourse = await courseService.createCourse({
             name,
             difficultyLevel,
             length,
             rating,
+            description,
+            materials,
+            instructions,
             posts: [],
         });
 
         res.status(201).json(newCourse);
     } catch (error) {
         next(error);
+    }
+});
+
+/**
+ * @swagger
+ * /courses/{id}:
+ *   delete:
+ *     summary: Delete a course by its ID
+ *     description: Deletes a course from the database using its ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the course to delete
+ *     responses:
+ *       200:
+ *         description: Course deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: "Course 1 deleted"
+ *       404:
+ *         description: Course not found.
+ *       500:
+ *         description: Internal server error.
+ */
+courseRouter.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    // Validate ID parameter
+    if (!id || isNaN(Number(id))) {
+        return res.status(400).json({ error: 'Invalid course ID provided.' });
+    }
+
+    try {
+        const courseId = Number(id);
+
+        // Delete course from the database
+        await courseService.deleteCourseByID(courseId);
+
+        return res.status(200).json(`Course ${courseId} deleted`);
+    } catch (error) {
+        next(error); // Pass other errors to error handling middleware
     }
 });
 

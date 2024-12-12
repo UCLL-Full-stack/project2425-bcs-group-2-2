@@ -1,10 +1,9 @@
-
 type PostInput = {
     id?: number;
     likes: number;
     description: string;
     uploadDate: Date;
-    course: CourseInput
+    course: CourseInput;
 };
 
 type UserInput = {
@@ -15,7 +14,7 @@ type UserInput = {
     email: string;
     bio: string;
     creationDate: Date;
-    userSettings:  UserSettingsInput;
+    userSettings: UserSettingsInput;
     posts: PostInput[];
     courses: CourseInput[];
 };
@@ -26,7 +25,11 @@ type CourseInput = {
     difficultyLevel: number;
     length: number;
     rating: number;
-    posts: PostInput[]
+    description: string;
+    materials: string[];
+    instructions: string[];
+    tips?: string;
+    posts: PostInput[];
 };
 
 type UserSettingsInput = {

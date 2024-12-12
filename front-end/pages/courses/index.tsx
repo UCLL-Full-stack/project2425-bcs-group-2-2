@@ -2,7 +2,7 @@ import Header from "@/components/header";
 import Head from "next/head";
 import CourseHeader from "@/components/coursesHeader";
 
-const Lecturers: React.FC = () => {
+const Courses: React.FC = () => {
   return (
     <>
       <Head>
@@ -18,4 +18,4 @@ const Lecturers: React.FC = () => {
     </>
   );
 };
-export default Lecturers;
+export default Courses;

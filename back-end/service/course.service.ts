@@ -7,7 +7,11 @@ const createCourse = async ({
     difficultyLevel,
     length,
     rating,
+    description,
+    materials,
+    instructions,
 }: CourseInput): Promise<Course> => {
+    // Validate Course input
     if (!name || typeof name !== 'string') {
         throw new Error('Invalid course name.');
     }
@@ -31,6 +35,9 @@ const createCourse = async ({
         difficultyLevel,
         length,
         rating,
+        description,
+        materials,
+        instructions,
     });
 
     return await courseDb.createCourse(course);
@@ -60,10 +67,22 @@ const getCoursesWithRatingGreaterThan = async (rating: number): Promise<Course[]
     const courses = await courseDb.getCoursesWithRatingGreaterThan(rating);
     return courses;
 };
+
+const deleteCourseByID = async (id: number) => {
+    const course = await courseDb.deleteCourse(id);
+    return;
+};
+
+const deleteAllCourses = async () => {
+    return await courseDb.deleteAllCourses();
+};
+
 export default {
     getAllCourses,
     getCourseById,
     getCoursesWithRatingGreaterThan,
     getCoursesByDifficulty,
     createCourse,
+    deleteCourseByID,
+    deleteAllCourses,
 };
