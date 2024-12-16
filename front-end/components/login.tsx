@@ -9,6 +9,8 @@ import classNames from "classnames";
 const LoginWindow: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
+
   const [usernameError, setUsernameError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [statusMessages, setStatusMessages] = useState<StatusMessage[]>([]);
@@ -47,7 +49,7 @@ const LoginWindow: React.FC = () => {
 
 
 
-    const user = { username, password };
+    const user = { username, password};
     const response = await UserService.loginUser(user);
 
     if (response.status === 200) {
@@ -59,7 +61,14 @@ const LoginWindow: React.FC = () => {
         },
       ]);      
 
-      sessionStorage.setItem("loggedInUser", username);
+      const user = await response.json();
+
+      sessionStorage.setItem("loggedInUser", 
+        JSON.stringify({
+          token: user.token,
+          username: user.username
+        })
+      );
       setTimeout(() => {
         router.push('/');
       }, 2000);

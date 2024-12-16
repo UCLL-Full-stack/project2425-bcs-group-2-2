@@ -37,7 +37,9 @@ const getAllUsers = async (): Promise<User[]> => userDb.getAllUsers();
 
 const getUserByUsername = async(username: string): Promise<User | null> => {
     const user = await userDb.getUserByUsername(username);
+    console.log(username)
     return user;
+    
 };
 
 const authenticate = async ({username, password}: UserInput): Promise<AuthenticationResponse> => {

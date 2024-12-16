@@ -15,8 +15,8 @@ model User {
     email           String
     bio             String
     creationDate    DateTime @default(now())
-    courses         Course[]
-    posts           Post[]
+    courses?         Course[]
+    posts?           Post[]
 }
 
 model Post {

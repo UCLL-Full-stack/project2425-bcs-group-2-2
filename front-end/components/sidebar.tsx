@@ -17,9 +17,9 @@ const Sidebar: React.FC = () => {
             </Link>
           </li>
           <li>
-            <Link href="/profile">
+            <Link href="/users">
               <p className="block py-2 px-4 rounded hover:bg-gray-700 transition">
-                Profile
+                Users
               </p>
             </Link>
           </li>
