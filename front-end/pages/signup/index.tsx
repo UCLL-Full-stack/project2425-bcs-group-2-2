@@ -1,5 +1,5 @@
-import Head from "next/head";
 import Register from "@/components/signUp";
+import Head from "next/head";
 
 const SignUp: React.FC = () => {
   return (

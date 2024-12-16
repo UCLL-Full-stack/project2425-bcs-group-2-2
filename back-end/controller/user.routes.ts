@@ -24,7 +24,7 @@ const userRouter = express.Router();
  *         description: Internal server error
  */
 
-userRouter.get('/', async (req: Request, res: Response) => {
+userRouter.get('/', async (req: Request , res: Response) => {
     try {
         const users = await userService.getAllUsers();
         res.status(200).json(users);
@@ -67,7 +67,7 @@ userRouter.get('/', async (req: Request, res: Response) => {
  *               $ref: '#/components/schemas/User'
  */
 
-userRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
+userRouter.post('/signup', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = <UserInput>req.body;
         const result = await userService.createUser(user);
@@ -76,6 +76,17 @@ userRouter.post('/', async (req: Request, res: Response, next: NextFunction) => 
         next(error);
     }
 });
+
+userRouter.post('/login', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const user = <UserInput>req.body;
+        const result = await userService.authenticate(user);
+        res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 
 

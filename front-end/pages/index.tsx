@@ -2,8 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 
 import Header from "@/components/header";
-import Register from "@/components/signUp";
-import LoginAlert from "@/components/registerButton";
+import Register from "@/components/signup";
 import Sidebar from "@/components/sidebar";
 
 const Home: React.FC = () => {
@@ -15,7 +14,6 @@ const Home: React.FC = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <LoginAlert />
 
       <main>
         <div className="flex flex-col justify-center items-center">
