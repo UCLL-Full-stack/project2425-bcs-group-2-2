@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 const Users: React.FC = () => {
     const router = useRouter();
 
-    const session = sessionStorage.getItem("loggedInUser");
+    const session = sessionStorage.getItem("loggedInUser")
     const parsedSession = JSON.parse(session); 
     const username = parsedSession.username; 
 

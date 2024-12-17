@@ -47,8 +47,6 @@ const LoginWindow: React.FC = () => {
       return;
     }
 
-
-
     const user = { username, password};
     const response = await UserService.loginUser(user);
 

@@ -37,10 +37,19 @@ const getAllUsers = async (): Promise<User[]> => userDb.getAllUsers();
 
 const getUserByUsername = async(username: string): Promise<User | null> => {
     const user = await userDb.getUserByUsername(username);
-    console.log(username)
     return user;
     
 };
+
+const updateUserByUsername = async(username: string, bio: string): Promise<User | null> => {
+    const user = await userDb.updateUserByUsername(username, bio);
+    return user;
+};
+
+const deleteUserByUsername = async(username: string): Promise<User| null> => {
+    const user = await userDb.deleteUserByUsername(username);
+    return user;
+}
 
 const authenticate = async ({username, password}: UserInput): Promise<AuthenticationResponse> => {
     const user = await getUserByUsername(username);
@@ -73,6 +82,6 @@ const authenticate = async ({username, password}: UserInput): Promise<Authentica
 // }
 
 // export default { getAllUsers, getUserById, createUser, putUserCoursesById };
-export default { getAllUsers,  createUser, getUserByUsername, authenticate};
+export default { getAllUsers,  createUser, getUserByUsername, authenticate, deleteUserByUsername, updateUserByUsername};
 
 

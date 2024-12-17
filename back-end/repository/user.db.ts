@@ -58,5 +58,39 @@ const createUser = async ({username, password, age, email, bio, creationDate}: U
     }
 };
 
+const deleteUserByUsername = async (username: string): Promise<User | null> => {
+    const deleteUser = await prisma.user.delete({
+        where: {
+          username
+        },
+        include: {
+            courses:true,
+            posts: true,
+        }
+      })
 
-export default {getAllUsers, createUser, getUserByUsername};
+   
+    return User.from(deleteUser);
+};
+
+
+const updateUserByUsername = async (username: string, bio: string): Promise<User | null> => {
+    const updateUser = await prisma.user.update({
+        where: {
+          username
+        },
+        include: {
+            courses:true,
+            posts: true,
+        },
+        data: {
+            bio
+        },
+      })
+
+   
+    return User.from(updateUser);
+};
+
+
+export default {getAllUsers, createUser, getUserByUsername,deleteUserByUsername, updateUserByUsername};

@@ -31,6 +31,20 @@ userRouter.get('/:username', async (req, res, next: NextFunction) => {
     };
 });
 
+userRouter.delete('/:username', async (req, res, next: NextFunction) => {
+    const username = req.params.username;
+    const user = await userService.deleteUserByUsername(username);
+    res.status(200).json(user);
+})
+
+userRouter.put('/:username/:bio', async (req, res, next: NextFunction) => {
+    const username = req.params.username;
+    const bio = req.params.bio;
+
+    const user = await userService.updateUserByUsername(username, bio);
+    res.status(200).json(user);
+})
+
 
 userRouter.post('/signup', async (req: Request, res: Response, next: NextFunction) => {
     try {

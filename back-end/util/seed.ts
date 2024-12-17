@@ -22,7 +22,7 @@ const main = async () => {
 
     await prisma.user.create({
         data: {
-            name: 'The God of Knitting',
+            username: 'The God of Knitting',
             password: "god123",
             age: 3,
             email: "godofknitting@myspace.com",
