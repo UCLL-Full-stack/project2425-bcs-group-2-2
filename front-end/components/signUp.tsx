@@ -67,12 +67,12 @@ const Register: React.FC = () => {
 
       setStatusMessages([
         {
-          message: `Successful Registration !. Redirecting to homepage...`,
+          message: `Successful Registration !. Redirecting to the login in page...`,
           type: "success",
         },
       ]);      
       setTimeout(() => {
-        router.push('/');
+        router.push('/login');
       }, 2000);
     } else {
       setStatusMessages([

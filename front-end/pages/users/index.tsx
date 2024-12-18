@@ -1,23 +1,36 @@
 import Register from "@/components/signUp";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 
 const Users: React.FC = () => {
     const router = useRouter();
+  const [session, setSession] = useState<string>(null);
 
-    const session = sessionStorage.getItem("loggedInUser")
-    const parsedSession = JSON.parse(session); 
-    const username = parsedSession.username; 
+  useEffect(()=> {
+    setSession(sessionStorage.getItem("loggedInUser"));
+
+
+  }, [])
+
+    if(session){
+      const parsedSession = JSON.parse(session); 
+      const username = parsedSession.username; 
+      router.push(`/users/${username}`);
+      
+    } 
+
 
       
 
-    setTimeout(() => {
-        router.push(`/users/${username}`);
-      }, 100);
+
 
   return (
     <>  
+          <div className="bg-red-100 text-red-800 p-4 rounded-lg">
+            <strong>Error: </strong> You need to connect if you want to access this page access this page
+          </div>
     </>
   );
 };

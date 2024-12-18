@@ -1,7 +1,10 @@
 import LoginWindow from "@/components/login";
 import Head from "next/head";
+import { useEffect } from "react";
 
 const Login: React.FC = () => {
+
+
   return (
     <>
       <Head>
@@ -10,6 +13,7 @@ const Login: React.FC = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      
       <LoginWindow />
     </>
   );

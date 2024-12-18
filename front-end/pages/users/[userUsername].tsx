@@ -4,6 +4,7 @@ import UserService from "@/services/UserService";
 import { User } from "@/types";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import useSWR, { mutate } from "swr";
 import useInterval from "use-interval";
 
@@ -22,12 +23,19 @@ const formatDate = (isoDate: string): string => {
 const Users: React.FC = () => {
   const router = useRouter();
   const { userUsername } = router.query;
+  const [hasSession, setHasSession] = useState(null);
+
 
   const getUser = async () => {
     const response = await UserService.getUser(userUsername as string);
 
     if (!response.ok) {
       const errorResponse = await response.json();
+      
+      if (errorResponse.message==="jwt malformed"){
+        throw new Error("You need to connect if you want to access this page access this page")
+      }
+
       const error = new Error(errorResponse.message);
       throw error;
     }
@@ -35,11 +43,17 @@ const Users: React.FC = () => {
     return await response.json();
   };
 
-
   const { data, isLoading, error } = useSWR(`user-${userUsername}`, getUser);
-  useInterval(()=> {
-    mutate(`user-${userUsername}`,getUser )
-  }, 100)
+
+  useEffect(() => {
+    setHasSession(sessionStorage.getItem("loggedInUser"));
+  }, [])
+
+
+  useInterval(() => {
+    mutate(`user-${userUsername}`, getUser)
+  }, 200)
+
 
 
 
@@ -56,9 +70,11 @@ const Users: React.FC = () => {
             <strong>Error:</strong> {error.message}
           </div>
         )}
-        {isLoading && <p className="text-center text-gray-500">Loading...</p>}
 
-        {data && (
+
+        {isLoading && hasSession && <p className="text-center text-gray-500">Loading...</p>}
+
+        {data && hasSession && (
           <div className="bg-white p-4 rounded-lg shadow-md space-y-2">
             <p className="text-lg font-semibold text-gray-800">
               Username: <span className="text-blue-600">{data.username}</span>
@@ -78,9 +94,9 @@ const Users: React.FC = () => {
           </div>
         )}
 
-        <ChangeBioForm />
+        {hasSession && <ChangeBioForm />}
 
-        <DeleteButton/>
+        {hasSession && <DeleteButton />}
 
       </main>
     </>

@@ -27,6 +27,7 @@ const ChangeBioForm: React.FC = () => {
 
     if (!validate()) return;
 
+    
     const session = sessionStorage.getItem("loggedInUser");
     const parsedSession = JSON.parse(session);
     const username = parsedSession.username;
