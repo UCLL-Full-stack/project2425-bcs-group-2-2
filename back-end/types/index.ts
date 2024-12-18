@@ -28,6 +28,12 @@ type CourseInput = {
     posts: PostInput[]
 };
 
+type AnonymousFeedbackInput = {
+    id?: number
+    subject: string
+    body: string 
+}
+
 
 
 type AuthenticationResponse = {
@@ -35,4 +41,4 @@ type AuthenticationResponse = {
     username: string;
 }
 
-export { CourseInput, AuthenticationResponse, PostInput, UserInput };
+export { CourseInput, AuthenticationResponse, PostInput, UserInput, AnonymousFeedbackInput };

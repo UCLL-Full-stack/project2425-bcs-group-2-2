@@ -39,3 +39,9 @@ model Course {
     users           User[]
     posts           Post[]
 }
+
+model AnonymousFeedback {
+    id              Int      @id @default(autoincrement())
+    subject         String
+    body            String 
+}
