@@ -7,17 +7,17 @@ import { Course } from "./course";
 
 
 export class Post {
-    public id?: number; // Optional
-    public likes: number; // Optional
-    public description: string; // Optional
-    public uploadDate: Date; // Optional
+    public id?: number; 
+    public likes: number; 
+    public description: string; 
+    public uploadDate: Date; 
     public course?: Course;
 
     constructor(post: {
-        id?: number; // Optional
-        likes: number; // Optional
-        description: string; // Optional
-        uploadDate: Date; // Optional
+        id?: number; 
+        likes: number; 
+        description: string; 
+        uploadDate: Date; 
         course?: Course;
 
     }) {

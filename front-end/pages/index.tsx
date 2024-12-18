@@ -2,7 +2,6 @@ import Head from "next/head";
 import Image from "next/image";
 
 import Header from "@/components/header";
-import Register from "@/components/signup";
 import Sidebar from "@/components/sidebar";
 
 const Home: React.FC = () => {

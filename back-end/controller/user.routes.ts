@@ -6,25 +6,9 @@ import { User } from '@prisma/client';
 const userRouter = express.Router();
 
 
-/**
- * @swagger
- * /users:
- *   get:
- *     summary: Get all users
- *     responses:
- *       200:
- *         description: A list of users
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/User'  # Reference to the User schema
- *       500:
- *         description: Internal server error
- */
 
-userRouter.get('/', async (req: Request , res: Response) => {
+
+userRouter.get('/all', async (req: Request , res: Response) => {
     try {
         const users = await userService.getAllUsers();
         res.status(200).json(users);
@@ -34,38 +18,33 @@ userRouter.get('/', async (req: Request , res: Response) => {
     }
 });
 
-// userRouter.put('/:userId/courses/:courseId', async (req: Request, res: Response, next: NextFunction) => {
-//     try{
-//         const userId = parseInt(req.params.userId);
-//         const courseId = parseInt(req.params.courseId);
-//         userService.putUserCoursesById(userId, courseId);
+userRouter.get('/:username', async (req, res, next: NextFunction) => {
+    try {
+        const username = req.params.username; 
+        const user = await userService.getUserByUsername(username)
+        
+        res.status(200).json(user);
 
-//         res.status(200).json("the course was successfuly saved by the user");
-//     }    catch (error) {
-//         next(error);
-//     }
-// });
+    } catch (error) {
+        next(error);
 
+    };
+});
 
-/**
- * @swagger
- * /users:
- *   post:
- *     summary: Create a new user
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/UserInput'
- *     responses:
- *       200:
- *         description: The created user.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- */
+userRouter.delete('/:username', async (req, res, next: NextFunction) => {
+    const username = req.params.username;
+    const user = await userService.deleteUserByUsername(username);
+    res.status(200).json(user);
+})
+
+userRouter.put('/:username/:bio', async (req, res, next: NextFunction) => {
+    const username = req.params.username;
+    const bio = req.params.bio;
+
+    const user = await userService.updateUserByUsername(username, bio);
+    res.status(200).json(user);
+})
+
 
 userRouter.post('/signup', async (req: Request, res: Response, next: NextFunction) => {
     try {

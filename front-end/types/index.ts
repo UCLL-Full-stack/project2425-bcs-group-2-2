@@ -14,7 +14,6 @@ export type User = {
     email?: string;
     bio?: string;
     creationDate?: Date;
-    userSettings?:  UserSettings;
     posts?: Post[];
     courses?: Course[];
 };
@@ -28,12 +27,7 @@ export type Course = {
     posts: Post[]
 };
 
-export type UserSettings = {
-    id?: number;
-    theme: string;
-    notificationsEnabled: boolean;
-    language: string;
-};
+
 
 export type StatusMessage = {
     message: string;

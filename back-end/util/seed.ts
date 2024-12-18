@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { set } from 'date-fns';
-import { UserSettings } from '../model/userSettings';
 
 const prisma = new PrismaClient();
 
@@ -241,9 +240,6 @@ const main = async () => {
             email: 'godofknitting@myspace.com',
             bio: 'hey guys I am here to learn knitting',
             creationDate: new Date(),
-            userSettings: {
-                connect: { id: defaultUserSettings.id },
-            },
             courses: {
                 connect: { id: course1.id },
             },

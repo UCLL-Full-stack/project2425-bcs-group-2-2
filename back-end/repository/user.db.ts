@@ -8,7 +8,6 @@ const prisma = new PrismaClient();
 const getAllUsers = async (): Promise<User[]> => {
     const usersPrisma = await prisma.user.findMany({
         include: {
-            userSettings: true, 
             courses: true,      
             posts: true,       
         },
@@ -22,7 +21,6 @@ const getUserByUsername = async (username: string): Promise<User | null> => {
     const userPrisma = await prisma.user.findUnique({
         where: { username },
         include: {
-            userSettings: true,
             courses:true,
             posts: true,
         },
@@ -46,16 +44,8 @@ const createUser = async ({username, password, age, email, bio, creationDate}: U
                 email,
                 bio : "",
                 creationDate,
-                userSettings: {
-                    create: {
-                        theme: 'dark',
-                        notificationsEnabled: true,
-                        language: 'en',
-                    },
-                },
             },
             include: {
-                userSettings: true, 
                 courses: true,      
                 posts: true,        
             },
@@ -68,5 +58,39 @@ const createUser = async ({username, password, age, email, bio, creationDate}: U
     }
 };
 
+const deleteUserByUsername = async (username: string): Promise<User | null> => {
+    const deleteUser = await prisma.user.delete({
+        where: {
+          username
+        },
+        include: {
+            courses:true,
+            posts: true,
+        }
+      })
 
-export default {getAllUsers, createUser, getUserByUsername};
+   
+    return User.from(deleteUser);
+};
+
+
+const updateUserByUsername = async (username: string, bio: string): Promise<User | null> => {
+    const updateUser = await prisma.user.update({
+        where: {
+          username
+        },
+        include: {
+            courses:true,
+            posts: true,
+        },
+        data: {
+            bio
+        },
+      })
+
+   
+    return User.from(updateUser);
+};
+
+
+export default {getAllUsers, createUser, getUserByUsername,deleteUserByUsername, updateUserByUsername};

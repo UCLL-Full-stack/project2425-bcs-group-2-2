@@ -52,9 +52,14 @@ const swaggerOpts = {
 };
 
 // app.use("/posts", postRouter);
+<<<<<<< HEAD
 app.use('/courses', courseRouter);
 app.use('/users', userRouter);
 // app.use("/settings", userSettingsRouter);
+=======
+// app.use("/courses", courseRouter);
+app.use("/users", userRouter);
+>>>>>>> user-page
 
 const swaggerSpec = swaggerJSDoc(swaggerOpts);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
