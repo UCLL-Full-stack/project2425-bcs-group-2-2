@@ -1,4 +1,4 @@
-import UserService from "@/services/UserService";
+import UserService from "@/service/userService";
 import { StatusMessage } from "@/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -68,8 +68,8 @@ const LoginWindow: React.FC = () => {
         })
       );
       setTimeout(() => {
-        //router.push('/'); -> don't use this because sidebar don't refresh in that case
-        window.location.href = '/';
+        //router.push('/courses'); -> don't use this because sidebar don't refresh in that case
+        window.location.href = '/courses';
 
       }, 2000);
     } else {
@@ -156,9 +156,9 @@ const LoginWindow: React.FC = () => {
           </form>
           <p className="text-center text-sm text-gray-600 mt-4">
             Don't have an account?{" "}
-            <a href="/signup" className="text-blue-500 underline">
+            <Link href="/signup" className="text-blue-500 underline">
               Sign Up
-            </a>
+            </Link>
           </p>
         </div>
       </div>

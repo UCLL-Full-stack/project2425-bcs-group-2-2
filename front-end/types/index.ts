@@ -24,8 +24,14 @@ export type Course = {
     difficultyLevel: number;
     length: number;
     rating: number;
-    posts: Post[]
+    description: string;
+    materials: string;
+    instructions: string;
+    tips: string;
+    users: User[]
 };
+
+
 
 
 

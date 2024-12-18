@@ -1,4 +1,4 @@
-import UserService from "@/services/UserService";
+import UserService from "@/service/userService";
 import { StatusMessage } from "@/types";
 import classNames from "classnames";
 import { useState } from "react";

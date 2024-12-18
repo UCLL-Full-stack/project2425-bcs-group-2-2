@@ -9,12 +9,10 @@ const CourseDetails = ({ course }: { course: any }) => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
-      {/* Course Title */}
       <h1 className="text-4xl font-bold text-gray-800 text-center mb-8">
         {course.name}
       </h1>
 
-      {/* Overview Section */}
       <div className="flex justify-around border-b pb-4 mb-6">
         <div className="text-center">
           <p className="text-sm font-medium text-gray-500">Difficulty</p>
@@ -34,9 +32,7 @@ const CourseDetails = ({ course }: { course: any }) => {
         </div>
       </div>
 
-      {/* Main Content Section */}
       <div className="space-y-8">
-        {/* Description */}
         <section>
           <h2 className="text-2xl font-semibold text-gray-800 mb-2">
             Description
@@ -44,7 +40,6 @@ const CourseDetails = ({ course }: { course: any }) => {
           <p className="text-gray-700 leading-relaxed">{course.description}</p>
         </section>
 
-        {/* Materials */}
         <section>
           <h2 className="text-2xl font-semibold text-gray-800 mb-2">
             Materials
@@ -56,7 +51,6 @@ const CourseDetails = ({ course }: { course: any }) => {
           </ul>
         </section>
 
-        {/* Instructions */}
         <section>
           <h2 className="text-2xl font-semibold text-gray-800 mb-2">
             Instructions
@@ -68,7 +62,6 @@ const CourseDetails = ({ course }: { course: any }) => {
           </ol>
         </section>
 
-        {/* Tips */}
         {course.tips && (
           <section>
             <h2 className="text-2xl font-semibold text-gray-800 mb-2">Tips</h2>

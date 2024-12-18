@@ -41,31 +41,19 @@ const Sidebar: React.FC = () => {
           <li>
             <Link href="/courses">
               <p className="block py-2 px-4 rounded hover:bg-gray-700 transition">
-                Course
+                Courses
               </p>
             </Link>
           </li>
           <li>
             <Link href="/users">
               <p className="block py-2 px-4 rounded hover:bg-gray-700 transition">
-                Users
+                Profile
               </p>
             </Link>
           </li>
-          <li>
-            <Link href="/saved-courses">
-              <p className="block py-2 px-4 rounded hover:bg-gray-700 transition">
-                Saved Courses
-              </p>
-            </Link>
-          </li>
-          <li>
-            <Link href="/settings">
-              <p className="block py-2 px-4 rounded hover:bg-gray-700 transition">
-                Settings
-              </p>
-            </Link>
-          </li>
+          
+          
           {!loggedInUser && (<li>
             <Link href="/signup">
               <p className="block py-2 px-4 rounded hover:bg-gray-700 transition">

@@ -10,8 +10,7 @@ const Courses: React.FC = () => {
       </Head>
 
       <main className="d-flex flex-column justify-content-center align-items-center">
-        <h1>Courses</h1>
-        <section>
+      <section>
           <CourseHeader />
         </section>
       </main>

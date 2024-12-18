@@ -1,4 +1,4 @@
-import UserService from "@/services/UserService";
+import UserService from "@/service/userService";
 import { StatusMessage } from "@/types";
 import classNames from "classnames";
 import Link from "next/link";
@@ -67,7 +67,7 @@ const Register: React.FC = () => {
 
       setStatusMessages([
         {
-          message: `Successful Registration !. Redirecting to the login in page...`,
+          message: `Successful Registration ! Redirecting to the login in page...`,
           type: "success",
         },
       ]);      
@@ -198,9 +198,9 @@ const Register: React.FC = () => {
           </form>
           <p className="text-center text-sm text-gray-600 mt-4">
             Already have an account?{" "}
-            <a href="/login" className="text-blue-500 underline">
+            <Link href="/login" className="text-blue-500 underline">
               Login
-            </a>
+            </Link>
           </p>
         </div>
       </div>

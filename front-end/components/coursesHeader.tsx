@@ -1,85 +1,67 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { getAllCourses } from "@/service/coursesService";
-
-interface Course {
-  id: number;
-  name: string;
-  difficultyLevel: string;
-  length: number;
-  rating: number;
-}
+import useSWR from "swr";
+import CourseService from "@/service/courseService";
+import { Course } from "@/types";
 
 const CourseHeader: React.FC = () => {
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [loading, setLoading] = useState(true);
+  const getCourses = async () => {
+    const response = await CourseService.getAllCourses();
 
-  const showCourseList = async () => {
-    setLoading(true);
-    try {
-      const data = await getAllCourses();
-      console.log(data);
+    if (!response.ok) {
+      const errorResponse = await response.json();
 
-      if (data && Array.isArray(data)) {
-        setCourses(data);
+      if (errorResponse.message === "jwt malformed") {
+        throw new Error("You need to connect if you want to access this page");
       }
-    } catch (error) {
-      console.error("Error fetching transactions:", error);
-    } finally {
-      setLoading(false);
+
+      const error = new Error(errorResponse.message);
+      throw error;
     }
+
+    return await response.json();
   };
 
-  useEffect(() => {
-    showCourseList();
-  }, []);
+  const { data, isLoading, error } = useSWR(`getCoursesAll`, getCourses);
 
   return (
     <>
-      <div className="course-header">
-        <h1 className="flex text-3xl font-bold justify-center">All Courses</h1>
-        {/* <div className="flex flex-row items-center justify-between mx-28">
-          <Link href="/">Course 1</Link>
-          <Link href="/">Course 2</Link>
-          <Link href="/">Course 3</Link>
-        </div> */}
+      {error && (
+        <div className="bg-red-100 text-red-800 p-4 rounded-lg">
+          <strong>Error:</strong> {error.message}
+        </div>
+      )}
 
-        <div className="grid grid-cols-2 gap-6 px-6 ">
-          {loading ? (
-            <p>Loading courses...</p>
-          ) : courses.length > 0 ? (
-            courses.map((course) => (
-              <Link key={course.id} href={`/courses/${course.id}`}>
-                <div
-                  key={course.difficultyLevel}
-                  className="border-l-[0.5em] border-l-black p-5 mx-4 flex items-center gap-7 border-y border-stone-300 shadow-md rounded-xl"
-                >
-                  <div className="flex justify-between w-full">
-                    <div className="flex flex-col justify-between">
-                      <h2 className="p-0 m-0 uppercase text-[1em] font-semibold">
-                        {course.name || "Course"}
-                      </h2>
-                      <p className="text-stone-600">
-                        Rating: {course.rating}/10
-                      </p>
-                    </div>
-                    <div className="flex flex-col justify-between text-right">
-                      <h2 className="p-0 m-0 text-dark font-bold">
-                        Level {course.difficultyLevel}
-                      </h2>
-                      <p className="text-stone-600">
-                        Duration: {course.length}hrs
-                      </p>
-                    </div>
+      {isLoading && <p className="text-center text-gray-500">Loading...</p>}
+      {data && !error && <h1 className="flex text-3xl font-bold justify-center">All Courses</h1>}
+
+      {data && !error && (
+        <div className="grid grid-cols-2 gap-6 px-6">
+          {data.map((course: Course) => (
+            <Link key={course.id} href={`/courses/${course.id}`}>
+              <div className="border-l-[0.5em] border-l-black p-5 mx-4 flex items-center gap-7 border-y border-stone-300 shadow-md rounded-xl">
+                <div className="flex justify-between w-full">
+                  <div className="flex flex-col justify-between">
+                    <h2 className="p-0 m-0 uppercase text-[1em] font-semibold">
+                      {course.name || "Course"}
+                    </h2>
+                    <p className="text-stone-600">
+                      Rating: {course.rating}/10
+                    </p>
+                  </div>
+                  <div className="flex flex-col justify-between text-right">
+                    <h2 className="p-0 m-0 text-dark font-bold">
+                      Level {course.difficultyLevel}
+                    </h2>
+                    <p className="text-stone-600">
+                      Duration: {course.length}hrs
+                    </p>
                   </div>
                 </div>
-              </Link>
-            ))
-          ) : (
-            <p>No courses available.</p>
-          )}
+              </div>
+            </Link>
+          ))}
         </div>
-      </div>
+      )}
     </>
   );
 };

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const Users: React.FC = () => {
     const router = useRouter();
-  const [session, setSession] = useState<string>(null);
+    const [session, setSession] = useState<string>(null);
 
   useEffect(()=> {
     setSession(sessionStorage.getItem("loggedInUser"));
@@ -22,15 +22,11 @@ const Users: React.FC = () => {
     } 
 
 
-      
-
-
-
   return (
     <>  
-          <div className="bg-red-100 text-red-800 p-4 rounded-lg">
-            <strong>Error: </strong> You need to connect if you want to access this page access this page
-          </div>
+    {!session&&(<div className="bg-red-100 text-red-800 p-4 rounded-lg">
+            <strong>Error: </strong> You need to connect if you want to access this page
+          </div>)}
     </>
   );
 };

@@ -1,5 +1,5 @@
 import Register from "@/components/signUp";
-import UserService from "@/services/UserService";
+import UserService from "@/service/userService";
 import Head from "next/head";
 import { useRouter } from "next/router";
 

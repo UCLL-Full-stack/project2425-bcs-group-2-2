@@ -22,7 +22,6 @@ const signupUser = (user: User) => {
 }
 
 const getUser =  (userUsername: string) => {
-    // Construct the URL with the username as a path parameter
     const token = JSON.parse(sessionStorage.getItem("loggedInUser"))?.token;
 
     return fetch(process.env.NEXT_PUBLIC_API_URL + `/users/${userUsername}`, {
@@ -35,7 +34,6 @@ const getUser =  (userUsername: string) => {
 };
 
 const deleteUser =  (userUsername: string) => {
-    // Construct the URL with the username as a path parameter
     const token = JSON.parse(sessionStorage.getItem("loggedInUser"))?.token;
 
     return fetch(process.env.NEXT_PUBLIC_API_URL + `/users/${userUsername}`, {
@@ -62,19 +60,11 @@ const updateUser =  (userUsername: string, bio: string) => {
     });
 };
 
-const getUsers = () => {
-    // Construct the URL with the username as a path parameter
-    return fetch(process.env.NEXT_PUBLIC_API_URL+"/users/all", {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-};
+
 
 
 const UserService = {
-    loginUser,signupUser, getUser, getUsers, deleteUser, updateUser
+    loginUser,signupUser, getUser, deleteUser, updateUser
 };
 
 export default UserService;

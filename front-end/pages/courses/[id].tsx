@@ -1,47 +1,49 @@
 import CourseDetails from "@/components/courseDetails";
-import { fetchCourseByID } from "@/service/coursesService";
+import CourseService from "@/service/courseService";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react"; // Adjust the import path
+import { useEffect, useState } from "react";
+import useSWR from "swr";
+
 const CoursePage = () => {
   const router = useRouter();
-  const { id } = router.query; // Get the dynamic route parameter
-  const [course, setCourse] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { id } = router.query;
 
-  useEffect(() => {
-    if (!id) {
-      console.error("No id found");
-      setLoading(false);
-      return;
+
+
+
+  const getCoursesById = async () => {
+    const response = await CourseService.fetchCourseByID(id as string);
+
+    if (!response.ok) {
+      const errorResponse = await response.json();
+
+      if (errorResponse.message === "jwt malformed") {
+        throw new Error("You need to connect if you want to access this page");
+      }
+
+      const error = new Error(errorResponse.message);
+      throw error;
     }
 
-    const fetchCourse = async () => {
-      try {
-        setLoading(true);
-        const courseData = await fetchCourseByID(Number(id));
-        setCourse(courseData);
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching course by ID:", err);
-        setLoading(false);
-      }
-    };
+    return await response.json();
+  };
 
-    fetchCourse();
-  }, [id]);
+  const { data, isLoading, error } = useSWR(`getCoursesById`, getCoursesById);
 
-  if (loading) {
-    return <p>Loading course details...</p>;
-  }
 
-  if (error) {
-    return <p>{error}</p>;
-  }
 
   return (
+
+
     <div>
-      <CourseDetails course={course} />
+      {error && (
+        <div className="bg-red-100 text-red-800 p-4 rounded-lg">
+          <strong>Error:</strong> {error.message}
+        </div>
+      )}
+
+      {isLoading && <p className="text-center text-gray-500">Loading...</p>}
+      {data && <CourseDetails course={data} />}
     </div>
   );
 };
