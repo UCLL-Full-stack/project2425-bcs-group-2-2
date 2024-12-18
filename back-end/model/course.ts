@@ -22,6 +22,39 @@ export class Course {
         instructions: string[];
         tips?: string;
     }) {
+        if (!course.name) {
+            throw new Error('Name cannot be null or empty.');
+        }
+
+        // Validation for difficultyLevel
+        if (course.difficultyLevel < 1 || course.difficultyLevel > 5) {
+            throw new Error('Difficulty level must be between 1 and 5.');
+        }
+
+        // Validation for length
+        if (course.length < 0) {
+            throw new Error('Length must be a positive number.');
+        }
+
+        // Validation for rating
+        if (course.rating < 1 || course.rating > 10) {
+            throw new Error('Rating must be between 1 and 10.');
+        }
+
+        // Validation for description
+        if (!course.description) {
+            throw new Error('Description cannot be null or empty.');
+        }
+
+        // Validation for materials and instructions to ensure they are arrays
+        if (!Array.isArray(course.materials) || course.materials.length === 0) {
+            throw new Error('Materials must be a non-empty array.');
+        }
+
+        if (!Array.isArray(course.instructions) || course.instructions.length === 0) {
+            throw new Error('Instructions must be a non-empty array.');
+        }
+
         this.id = course.id;
         this.name = course.name;
         this.difficultyLevel = course.difficultyLevel;
@@ -30,6 +63,7 @@ export class Course {
         this.description = course.description;
         this.materials = course.materials;
         this.instructions = course.instructions;
+        this.tips = course.tips;
     }
 
     getId(): number | undefined {

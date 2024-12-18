@@ -45,6 +45,9 @@ const createCourse = async ({
 
 const getAllCourses = async (): Promise<Course[]> => {
     const courses = await courseDb.getAllCourses();
+    if (!courses) {
+        throw new Error('No courses found.');
+    }
     return courses;
 };
 
@@ -60,16 +63,25 @@ const getCourseById = async (id: number): Promise<Course> => {
 
 const getCoursesByDifficulty = async (level: number): Promise<Course[]> => {
     const courses = await courseDb.getCourseByDifficulty(level);
+    if (!courses) {
+        throw new Error(`No courses found with difficulty level ${level}`);
+    }
     return courses;
 };
 
 const getCoursesWithRatingGreaterThan = async (rating: number): Promise<Course[]> => {
     const courses = await courseDb.getCoursesWithRatingGreaterThan(rating);
+    if (!courses) {
+        throw new Error(`No courses found with rating greater than ${rating}`);
+    }
     return courses;
 };
 
 const deleteCourseByID = async (id: number) => {
     const course = await courseDb.deleteCourse(id);
+    if (!course) {
+        throw new Error(`Course with id ${id} does not exist`);
+    }
     return;
 };
 
