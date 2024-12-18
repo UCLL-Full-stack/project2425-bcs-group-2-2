@@ -1,4 +1,5 @@
 const getAllCourses = async () => {
+  const token = sessionStorage.getItem("Access_Token");
   const url = process.env.NEXT_PUBLIC_API_URL + `/courses`;
   console.log("fetching from url");
 
@@ -6,6 +7,7 @@ const getAllCourses = async () => {
     const response = await fetch(url, {
       method: "GET",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -24,11 +26,13 @@ const getAllCourses = async () => {
 };
 
 const fetchCourseByID = async (id: number) => {
+  const token = sessionStorage.getItem("Access_Token");
   const url = process.env.NEXT_PUBLIC_API_URL + `/courses/${id}`;
   try {
     const response = await fetch(url, {
       method: "GET",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
