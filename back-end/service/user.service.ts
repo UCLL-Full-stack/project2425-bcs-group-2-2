@@ -1,87 +1,111 @@
 import userDb from '../repository/user.db';
 import { User } from '../model/user';
-import { UserInput } from '../types';
-import { AuthenticationResponse } from '../types';
-
+import { UserInput, AuthenticationResponse } from '../types';
 import bcrypt from 'bcrypt';
 import { generateJwtToken } from '../util/jwt';
 
-const createUser = async ({
-    username,
-    password,
-    age,
-    email,
-    bio
-}: UserInput): Promise<User> => {
-    // if (getUserByUsername(username) != null){
-    //     throw new Error("User already exist")
-    // }
-    
+const createUser = async ({ username, password, age, email, bio }: UserInput): Promise<User> => {
+    // Validate User input
+    if (!username || typeof username !== 'string' || username.trim() === '') {
+        throw new Error('Invalid username. Username must be a non-empty string.');
+    }
+    if (!password || typeof password !== 'string' || password.trim() === '') {
+        throw new Error('Invalid password. Password must be a non-empty string.');
+    }
+    if (!age || typeof age !== 'number' || age <= 0) {
+        throw new Error('Invalid age. Age must be a positive number.');
+    }
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+        throw new Error('Invalid email address.');
+    }
+    if (bio && typeof bio !== 'string') {
+        throw new Error('Invalid bio. Bio must be a string.');
+    }
 
-    console.log('triger')
-
-    const hashedPassword = await bcrypt.hash(password, 12)
+    const hashedPassword = await bcrypt.hash(password, 12);
 
     const creationDate = new Date();
-    const user = new User({username, password: hashedPassword, age, email, bio, creationDate});
-    console.log(getUserByUsername(username));
+    const user = new User({ username, password: hashedPassword, age, email, bio, creationDate });
+
     return await userDb.createUser(user);
 };
 
+const getAllUsers = async (): Promise<User[]> => {
+    const users = await userDb.getAllUsers();
+    if (!users || users.length === 0) {
+        throw new Error('No users found.');
+    }
+    return users;
+};
 
+const getUserByUsername = async (username: string): Promise<User | null> => {
+    if (!username || typeof username !== 'string' || username.trim() === '') {
+        throw new Error('Invalid username. Username must be a non-empty string.');
+    }
 
-
-const getAllUsers = async (): Promise<User[]> => userDb.getAllUsers();
-
-
-
-const getUserByUsername = async(username: string): Promise<User | null> => {
     const user = await userDb.getUserByUsername(username);
+    if (!user) {
+        throw new Error(`User with username "${username}" does not exist.`);
+    }
     return user;
-    
 };
 
-const updateUserByUsername = async(username: string, bio: string): Promise<User | null> => {
+const updateUserByUsername = async (username: string, bio: string): Promise<User | null> => {
+    if (!username || typeof username !== 'string' || username.trim() === '') {
+        throw new Error('Invalid username. Username must be a non-empty string.');
+    }
+    if (!bio || typeof bio !== 'string') {
+        throw new Error('Invalid bio. Bio must be a non-empty string.');
+    }
+
     const user = await userDb.updateUserByUsername(username, bio);
+    if (!user) {
+        throw new Error(`Failed to update bio for user "${username}".`);
+    }
     return user;
 };
 
-const deleteUserByUsername = async(username: string): Promise<User| null> => {
-    const user = await userDb.deleteUserByUsername(username);
-    return user;
-}
+const deleteUserByUsername = async (username: string): Promise<User | null> => {
+    if (!username || typeof username !== 'string' || username.trim() === '') {
+        throw new Error('Invalid username. Username must be a non-empty string.');
+    }
 
-const authenticate = async ({username, password}: UserInput): Promise<AuthenticationResponse> => {
+    const user = await userDb.deleteUserByUsername(username);
+    if (!user) {
+        throw new Error(`User with username "${username}" does not exist.`);
+    }
+    return user;
+};
+
+const authenticate = async ({ username, password }: UserInput): Promise<AuthenticationResponse> => {
+    if (!username || typeof username !== 'string' || username.trim() === '') {
+        throw new Error('Invalid username. Username must be a non-empty string.');
+    }
+    if (!password || typeof password !== 'string' || password.trim() === '') {
+        throw new Error('Invalid password. Password must be a non-empty string.');
+    }
+
     const user = await getUserByUsername(username);
-    if (user === null){
-        throw new Error("user don't exist")
+    if (!user) {
+        throw new Error('Invalid credentials.');
     }
 
     const isValidPassword = await bcrypt.compare(password, user.password);
-
     if (!isValidPassword) {
-        throw new Error('incorrect password')
+        throw new Error('Invalid credentials.');
     }
-
 
     return {
         token: generateJwtToken(username),
-        username
+        username,
     };
-}
+};
 
-// const putUserCoursesById = (idUser: number, idCourse: number) : void => {
-//     const course = courseDb.getCourseById(idCourse);
-//     console.log(course)
-//     const user = getUserById(idUser);
-//     console.log(user)
-//     if(!course) throw new Error();
-//     user.setCourse(course);
-//     console.log(user)
-
-// }
-
-// export default { getAllUsers, getUserById, createUser, putUserCoursesById };
-export default { getAllUsers,  createUser, getUserByUsername, authenticate, deleteUserByUsername, updateUserByUsername};
-
-
+export default {
+    createUser,
+    getAllUsers,
+    getUserByUsername,
+    updateUserByUsername,
+    deleteUserByUsername,
+    authenticate,
+};

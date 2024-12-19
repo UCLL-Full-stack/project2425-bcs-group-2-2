@@ -1,5 +1,5 @@
-import UserService from "@/service/userService";
-import { StatusMessage } from "@/types";
+import UserService from "../service/userService";
+import { StatusMessage } from "../types";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
