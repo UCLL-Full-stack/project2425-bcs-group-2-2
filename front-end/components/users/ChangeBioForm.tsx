@@ -3,10 +3,16 @@ import { StatusMessage } from "@/types";
 import classNames from "classnames";
 import { useState } from "react";
 
-const ChangeBioForm: React.FC = () => {
+type Props = {
+  onBioUpdate: (bio: string) => void;
+};
+
+const ChangeBioForm: React.FC<Props> = ({ onBioUpdate }) => {
   const [bio, setBio] = useState("");
   const [bioError, setBioError] = useState<string | null>(null);
   const [statusMessages, setStatusMessages] = useState<StatusMessage[]>([]);
+  
+  
 
   const clearErrors = () => {
     setBioError(null);
@@ -36,6 +42,7 @@ const ChangeBioForm: React.FC = () => {
 
     if (response.status === 200) {
       setStatusMessages([{ message: "Bio updated successfully.", type: "success" }]);
+      onBioUpdate(bio); 
     } else {
       setStatusMessages([{ message: "Failed to update bio. Try again.", type: "error" }]);
     }

@@ -18,6 +18,8 @@ const Users: React.FC = () => {
   const router = useRouter();
   const { userUsername } = router.query;
   const [hasSession, setHasSession] = useState(null);
+  const [bio, setBio] = useState<string>(""); 
+
 
 
   const getUser = async () => {
@@ -44,12 +46,19 @@ const Users: React.FC = () => {
   }, [])
 
 
-  useInterval(() => {
-    mutate(`user-${userUsername}`, getUser)
-  }, 200)
+  // useInterval(() => {
+  //   mutate(`user-${userUsername}`, getUser)
+  // }, 200)
 
+  const handleBioUpdate = (updatedBio: string) => {
+    setBio(updatedBio);
+  };
 
-
+  useEffect(() => {
+    if (data && data.bio) {
+      setBio(data.bio); 
+    }
+  }, [data]);
 
   return (
     <>
@@ -71,9 +80,9 @@ const Users: React.FC = () => {
 
 
 
-      <UserOverview user={data} />
-      <ChangeBioForm />
-      <DeleteButton />
+        <UserOverview user={data} bio={bio} />
+        <ChangeBioForm onBioUpdate={handleBioUpdate} />
+        <DeleteButton />
 
       </main>)}
     </>

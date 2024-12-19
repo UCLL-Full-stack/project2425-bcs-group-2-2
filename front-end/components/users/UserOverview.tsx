@@ -2,7 +2,7 @@ import { User } from "@/types";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
-const formatDate = (isoDate: string): string => {
+const formatDate = (isoDate: Date): string => {
   const date = new Date(isoDate);
   return date.toLocaleDateString("en-GB", {
     day: "2-digit",
@@ -12,10 +12,15 @@ const formatDate = (isoDate: string): string => {
 };
 
 type Props = {
-    user: User
+  user: User
+  bio: String
 }
 
-const UserOverview: React.FC<Props> = ({user}: Props) => {
+
+
+
+
+const UserOverview: React.FC<Props> = ({user, bio}: Props) => {
   return (
     <>
           <div className="bg-white p-4 rounded-lg shadow-md space-y-2">
@@ -28,8 +33,9 @@ const UserOverview: React.FC<Props> = ({user}: Props) => {
             <p className="text-lg font-semibold text-gray-800">
               Age: <span className="text-blue-600">{user.age}</span>
             </p>
+
             <p className="text-lg font-semibold text-gray-800">
-              Bio: <span className="text-blue-600">{user.bio}</span>
+              Bio: <span className="text-blue-600">{bio}</span>
             </p>
             <p className="text-lg font-semibold text-gray-800">
               Created On: <span className="text-blue-600">{formatDate(user.creationDate)}</span>
