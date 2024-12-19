@@ -1,4 +1,4 @@
-import CourseDetails from "@/components/courseDetails";
+import CourseDetails from "@/components/courses/courseDetails";
 import CourseService from "@/service/courseService";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

@@ -1,6 +1,6 @@
 import Header from "@/components/header";
 import Head from "next/head";
-import CourseHeader from "@/components/coursesHeader";
+import CourseHeader from "@/components/courses/coursesHeader";
 
 const Courses: React.FC = () => {
   return (
