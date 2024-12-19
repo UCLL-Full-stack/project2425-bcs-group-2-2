@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import classNames from "classnames";
 
-
 const LoginWindow: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -47,30 +46,29 @@ const LoginWindow: React.FC = () => {
       return;
     }
 
-    const user = { username, password};
+    const user = { username, password };
     const response = await UserService.loginUser(user);
 
     if (response.status === 200) {
-
       setStatusMessages([
         {
           message: `Login succesful. Redirecting to homepage...`,
           type: "success",
         },
-      ]);      
+      ]);
 
       const user = await response.json();
 
-      sessionStorage.setItem("loggedInUser", 
+      sessionStorage.setItem(
+        "loggedInUser",
         JSON.stringify({
           token: user.token,
-          username: user.username
+          username: user.username,
         })
       );
       setTimeout(() => {
         //router.push('/courses'); -> don't use this because sidebar don't refresh in that case
-        window.location.href = '/courses';
-
+        window.location.href = "/courses";
       }, 2000);
     } else {
       setStatusMessages([
@@ -78,10 +76,9 @@ const LoginWindow: React.FC = () => {
           message: `Login didn't succeed. Please try again`,
           type: "error",
         },
-      ]);    
+      ]);
     }
-
-  }
+  };
   return (
     <>
       <div className="form-container flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-blue-200 text-black">
@@ -93,22 +90,22 @@ const LoginWindow: React.FC = () => {
             Log in to access your account
           </p>
           {statusMessages && (
-        <div className="row">
-          <ul className="list-none mb-3 mx-auto ">
-            {statusMessages.map(({ message, type }, index) => (
-              <li
-                key={index}
-                className={classNames({
-                  "text-red-800": type === "error",
-                  "text-green-800": type === "success",
-                })}
-              >
-                {message}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+            <div className="row">
+              <ul className="list-none mb-3 mx-auto ">
+                {statusMessages.map(({ message, type }, index) => (
+                  <li
+                    key={index}
+                    className={classNames({
+                      "text-red-800": type === "error",
+                      "text-green-800": type === "success",
+                    })}
+                  >
+                    {message}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <form onSubmit={handleSubmit}>
             <div>
               <label
@@ -121,12 +118,13 @@ const LoginWindow: React.FC = () => {
                 type="name"
                 id="email"
                 name="email"
-                placeholder="johndoe@gmail.com"
+                placeholder="johndoe"
                 className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500"
                 onChange={(event) => setUsername(event.target.value)}
               />
-              {usernameError && <div className="text-red-800 ">{usernameError}</div>}
-
+              {usernameError && (
+                <div className="text-red-800 ">{usernameError}</div>
+              )}
             </div>
             <div className="mt-4">
               <label

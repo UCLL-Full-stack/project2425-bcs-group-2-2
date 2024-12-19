@@ -1,0 +1,33 @@
+{
+  "app.title": "Détails de l'utilisateur",
+  "general.error": "Erreur",
+  "users": {
+    "error.message.jwtMalformed": "Vous devez vous connecter pour accéder à cette page.",
+    "loading": "Chargement...",
+    "userDetails": {
+      "heading": "Détails de l'utilisateur",
+      "title": "Détails de l'utilisateur"
+    },
+    "changeBio": {
+      "heading": "Mettre à jour la bio"
+    },
+    "deleteButton": {
+      "label": "Supprimer l'utilisateur"
+    },
+    "UserOverview": {
+      "username": "Nom d'utilisateur",
+      "email": "E-mail",
+      "age": "Âge",
+      "bio": "Biographie",
+      "createdOn": "Créé le"
+    },
+    "ChangeBioForm": {
+      "title": "Biographie",
+      "bioPlaceholder": "Écrivez quelque chose sur vous-même...",
+      "button": "Mettre à jour la biographie"
+    },
+    "DeleteButton": {
+      "label": "Supprimer l'utilisateur"
+    }
+  }
+}

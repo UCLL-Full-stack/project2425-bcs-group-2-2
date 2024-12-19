@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { LanguageBox } from "./languageBox";
 
 const Sidebar: React.FC = () => {
   const [loggedInUser, setLoggedInUser] = useState<String>(null);
@@ -21,7 +20,7 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <div className="h-screen w-64 bg-gray-800 text-white flex flex-col fixed">
+    <div className="h-screen w-64 bg-gray-800 text-white fixed">
       <div className="flex flex-col items-center py-6 border-b border-gray-700">
         <h1 className="text-2xl font-bold mb-2 text-white">Golden Hands</h1>
         {loggedInUser && (
@@ -29,8 +28,9 @@ const Sidebar: React.FC = () => {
         )}
       </div>
 
-      <nav className="flex-1 pt-4">
+      <nav className="mt-6">
         <ul className="flex flex-col space-y-2 px-4">
+          <li></li>
           <li>
             <Link href="/courses">
               <p className="block py-2 px-4 rounded hover:bg-gray-700 transition">
@@ -45,6 +45,7 @@ const Sidebar: React.FC = () => {
               </p>
             </Link>
           </li>
+
           {!loggedInUser && (
             <li>
               <Link href="/signup">
@@ -65,11 +66,6 @@ const Sidebar: React.FC = () => {
           )}
         </ul>
       </nav>
-
-      {/* LanguageBox at the bottom */}
-      <div className="mt-auto p-4">
-        <LanguageBox />
-      </div>
     </div>
   );
 };

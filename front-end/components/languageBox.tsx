@@ -1,44 +1,30 @@
-import React, { useState } from "react";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { useRouter } from "next/router";
 
 const LanguageBox: React.FC = () => {
-  const [language, setLanguage] = useState("English"); // Default language is English
+  const router = useRouter();
+  const { locale, pathname, asPath, query } = router;
 
-  const handleLanguageChange = (lang: string) => {
-    setLanguage(lang);
+  const handleLanguageChange = (event: { target: { value: string } }) => {
+    const newLocale = event.target.value;
+    router.push({ pathname, query }, asPath, { locale: newLocale });
   };
 
   return (
-    <>
-      <Collapsible>
-        <CollapsibleTrigger className="px-4 py-2 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none">
-          Language: {language}
-        </CollapsibleTrigger>
-        <CollapsibleContent className="mt-2 space-y-2">
-          <button
-            onClick={() => handleLanguageChange("English")}
-            className={`px-4 py-2 w-full text-left text-black rounded-lg border focus:outline-none hover:bg-gray-100 transition ${
-              language === "English" ? "bg-gray-200" : "bg-white"
-            }`}
-          >
-            English
-          </button>
-          <button
-            onClick={() => handleLanguageChange("French")}
-            className={`px-4 py-2 w-full text-left text-black rounded-lg border focus:outline-none hover:bg-gray-100 transition ${
-              language === "French" ? "bg-gray-200" : "bg-white"
-            }`}
-          >
-            French
-          </button>
-        </CollapsibleContent>
-      </Collapsible>
-    </>
+    <div className="ml-6">
+      <label htmlFor="language" className="text-white">
+        Language
+      </label>
+      <select
+        id="language"
+        className="ml-2 p-1"
+        value={locale}
+        onChange={handleLanguageChange}
+      >
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+      </select>
+    </div>
   );
 };
 
-export { LanguageBox };
+export default LanguageBox;

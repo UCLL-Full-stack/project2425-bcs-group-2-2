@@ -1,0 +1,33 @@
+{
+  "app.title": "User Details",
+  "general.error": "Error",
+  "users": {
+    "error.message.jwtMalformed": "You must log in to access this page.",
+    "loading": "Loading...",
+    "userDetails": {
+      "heading": "User Details",
+      "title": "User Details"
+    },
+    "changeBio": {
+      "heading": "Update bio"
+    },
+    "deleteButton": {
+      "label": "Delete user"
+    },
+    "UserOverview": {
+      "username": "Username",
+      "email": "Email",
+      "age": "Age",
+      "bio": "Bio",
+      "createdOn": "Created On"
+    },
+    "ChangeBioForm": {
+      "title": "Bio",
+      "bioPlaceholder": "Write something about yourself...",
+      "button": "Update Bio"
+    },
+    "DeleteButton": {
+      "label": "Delete user"
+    }
+  }
+}
