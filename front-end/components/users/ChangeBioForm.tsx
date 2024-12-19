@@ -33,9 +33,8 @@ const ChangeBioForm: React.FC<Props> = ({ onBioUpdate }) => {
 
     if (!validate()) return;
 
-    const session = sessionStorage.getItem("loggedInUser");
-    const parsedSession = JSON.parse(session);
-    const username = parsedSession.username;
+    
+    const username = sessionStorage.getItem("loggedInUser");
 
     const response = await UserService.updateUser(
       username as string,

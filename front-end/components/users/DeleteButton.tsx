@@ -3,6 +3,7 @@ import UserService from "@/service/userService";
 import { useTranslation } from "next-i18next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const DeleteButton: React.FC = () => {
   const { t } = useTranslation("common");
@@ -12,11 +13,10 @@ const DeleteButton: React.FC = () => {
   const deleteButtonHandler = async () => {
     window.location.href = "/login";
 
-    const session = sessionStorage.getItem("loggedInUser");
-    const parsedSession = JSON.parse(session);
-    const username = parsedSession.username;
+    const username = sessionStorage.getItem("loggedInUser");
     await UserService.deleteUser(username as string);
 
+    sessionStorage.removeItem("token");
     sessionStorage.removeItem("loggedInUser");
   };
 

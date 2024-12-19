@@ -22,7 +22,7 @@ const signupUser = (user: User) => {
 }
 
 const getUser =  (userUsername: string) => {
-    const token = JSON.parse(sessionStorage.getItem("loggedInUser"))?.token;
+    const token = sessionStorage.getItem("token");
 
     return fetch(process.env.NEXT_PUBLIC_API_URL + `/users/${userUsername}`, {
         method: 'GET',
@@ -34,7 +34,7 @@ const getUser =  (userUsername: string) => {
 };
 
 const deleteUser =  (userUsername: string) => {
-    const token = JSON.parse(sessionStorage.getItem("loggedInUser"))?.token;
+    const token = sessionStorage.getItem("token");
 
     return fetch(process.env.NEXT_PUBLIC_API_URL + `/users/${userUsername}`, {
         method: 'DELETE',
@@ -46,9 +46,7 @@ const deleteUser =  (userUsername: string) => {
 };
 
 const updateUser =  (userUsername: string, bio: string) => {
-    const token = JSON.parse(sessionStorage.getItem("loggedInUser"))?.token;
-    console.log(bio);
-    console.log(userUsername);
+    const token = sessionStorage.getItem("token");
 
 
     return fetch(process.env.NEXT_PUBLIC_API_URL + `/users/${userUsername}/${bio}`, {
