@@ -13,18 +13,14 @@ const createUser = async ({
     email,
     bio
 }: UserInput): Promise<User> => {
-    // if (getUserByUsername(username) != null){
-    //     throw new Error("User already exist")
-    // }
+
     
 
-    console.log('triger')
 
     const hashedPassword = await bcrypt.hash(password, 12)
 
     const creationDate = new Date();
     const user = new User({username, password: hashedPassword, age, email, bio, creationDate});
-    console.log(getUserByUsername(username));
     return await userDb.createUser(user);
 };
 
@@ -70,18 +66,6 @@ const authenticate = async ({username, password}: UserInput): Promise<Authentica
     };
 }
 
-// const putUserCoursesById = (idUser: number, idCourse: number) : void => {
-//     const course = courseDb.getCourseById(idCourse);
-//     console.log(course)
-//     const user = getUserById(idUser);
-//     console.log(user)
-//     if(!course) throw new Error();
-//     user.setCourse(course);
-//     console.log(user)
-
-// }
-
-// export default { getAllUsers, getUserById, createUser, putUserCoursesById };
 export default { getAllUsers,  createUser, getUserByUsername, authenticate, deleteUserByUsername, updateUserByUsername};
 
 

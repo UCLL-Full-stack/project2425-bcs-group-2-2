@@ -9,15 +9,12 @@ const Users: React.FC = () => {
     const [session, setSession] = useState<string>(null);
 
   useEffect(()=> {
-    setSession(sessionStorage.getItem("loggedInUser"));
-
-
+    const loggedInUser = sessionStorage.getItem("loggedInUser");
+    setSession(loggedInUser);
   }, [])
 
     if(session){
-      const parsedSession = JSON.parse(session); 
-      const username = parsedSession.username; 
-      router.push(`/users/${username}`);
+      router.push(`/users/${session}`);
       
     } 
 

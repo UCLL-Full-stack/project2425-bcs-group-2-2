@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const getAllCourses = async () => {
-  const token = JSON.parse(sessionStorage.getItem("loggedInUser"))?.token;
+  const token = sessionStorage.getItem("token");
   
   return fetch(process.env.NEXT_PUBLIC_API_URL + `/courses`, {
     method: "GET",
@@ -13,8 +13,8 @@ const getAllCourses = async () => {
 };
 
 const fetchCourseByID = async (id: string) => {
-  const token = JSON.parse(sessionStorage.getItem("loggedInUser"))?.token;
-    return fetch(process.env.NEXT_PUBLIC_API_URL + `/courses/${id}`, {
+  const token = sessionStorage.getItem("token");
+  return fetch(process.env.NEXT_PUBLIC_API_URL + `/courses/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

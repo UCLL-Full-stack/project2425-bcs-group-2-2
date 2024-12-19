@@ -4,18 +4,24 @@ import Link from "next/link";
 const Sidebar: React.FC = () => {
   const [loggedInUser, setLoggedInUser] = useState<String>(null);
 
-  useEffect(() => {
-    const session = sessionStorage.getItem("loggedInUser");
-    const parsedSession = JSON.parse(session);
+  useEffect(()=> {
 
-    if (session) {
-      const username = parsedSession.username;
-      setLoggedInUser(username);
+    const loggedInUser = sessionStorage.getItem("loggedInUser");
+
+    
+    if(loggedInUser){
+      setLoggedInUser(loggedInUser);
     }
   }, []);
 
   const handleLogout = () => {
-    sessionStorage.removeItem("loggedInUser");
+
+      sessionStorage.removeItem("loggedInUser");
+      sessionStorage.removeItem("token");
+    
+
+
+
     setLoggedInUser(null);
   };
 

@@ -2,7 +2,7 @@ import UserService from "@/service/userService";
 import { StatusMessage } from "@/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 
 const LoginWindow: React.FC = () => {
@@ -59,13 +59,18 @@ const LoginWindow: React.FC = () => {
 
       const user = await response.json();
 
-      sessionStorage.setItem(
-        "loggedInUser",
-        JSON.stringify({
-          token: user.token,
-          username: user.username,
-        })
-      );
+
+      sessionStorage.setItem("loggedInUser",
+          user.username
+        );
+      sessionStorage.setItem("token",
+          user.token
+        );
+
+
+
+
+
       setTimeout(() => {
         //router.push('/courses'); -> don't use this because sidebar don't refresh in that case
         window.location.href = "/courses";
