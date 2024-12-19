@@ -286,9 +286,7 @@ courseRouter.get('/:level', async (req: Request, res: Response, next: NextFuncti
  */
 courseRouter.get('/details', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        console.log();
         const { id } = req.params;
-        console.log(id);
         const courseId = Number(id);
 
         if (isNaN(courseId)) {

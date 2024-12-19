@@ -2,6 +2,7 @@ import Register from "@/components/signUp";
 import UserService from "@/service/userService";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 
 const DeleteButton: React.FC = () => {
@@ -11,14 +12,15 @@ const DeleteButton: React.FC = () => {
         window.location.href = '/login';
                 
         
-        const session = sessionStorage.getItem("loggedInUser");
-        const parsedSession = JSON.parse(session);
-        const username = parsedSession.username;
+        const username = sessionStorage.getItem("loggedInUser");
         await UserService.deleteUser(username as string);
 
     
         
         sessionStorage.removeItem("loggedInUser");
+        sessionStorage.removeItem("token");
+
+
           
       };
 

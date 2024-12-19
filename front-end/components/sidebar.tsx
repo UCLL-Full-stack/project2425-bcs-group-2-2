@@ -5,18 +5,24 @@ const Sidebar: React.FC = () => {
   const [loggedInUser, setLoggedInUser] = useState<String>(null);
 
   useEffect(()=> {
-    const session = sessionStorage.getItem("loggedInUser")
-    const parsedSession = JSON.parse(session); 
+
+    const loggedInUser = sessionStorage.getItem("loggedInUser");
+
     
-    if(session){
-      const username = parsedSession.username; 
-      setLoggedInUser(username);
+    if(loggedInUser){
+      setLoggedInUser(loggedInUser);
     }
 
   }, [])
 
   const handleLogout = () => {
-    sessionStorage.removeItem("loggedInUser");
+
+      sessionStorage.removeItem("loggedInUser");
+      sessionStorage.removeItem("token");
+    
+
+
+
     setLoggedInUser(null);
   }
   

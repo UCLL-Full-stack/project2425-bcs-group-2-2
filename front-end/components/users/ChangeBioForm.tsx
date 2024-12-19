@@ -34,9 +34,7 @@ const ChangeBioForm: React.FC<Props> = ({ onBioUpdate }) => {
     if (!validate()) return;
 
     
-    const session = sessionStorage.getItem("loggedInUser");
-    const parsedSession = JSON.parse(session);
-    const username = parsedSession.username;
+    const username = sessionStorage.getItem("loggedInUser");
 
     const response = await UserService.updateUser(username as string, bio as string);
 
@@ -68,8 +66,8 @@ const ChangeBioForm: React.FC<Props> = ({ onBioUpdate }) => {
 
       <form onSubmit={handleSubmit} className="space-y-6 w-full">
         <div className="w-full">
-          <label htmlFor="bio" className="block text-sm font-semibold text-gray-700">
-            Bio
+          <label htmlFor="bio" className="block text-sm font-semibold text-gray-700 mb-3">
+            Change your bio :
           </label>
           <textarea
             id="bio"

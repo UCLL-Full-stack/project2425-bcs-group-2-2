@@ -2,7 +2,7 @@ import UserService from "@/service/userService";
 import { StatusMessage } from "@/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 
 
@@ -47,7 +47,7 @@ const LoginWindow: React.FC = () => {
       return;
     }
 
-    const user = { username, password};
+    const user = { username, password };
     const response = await UserService.loginUser(user);
 
     if (response.status === 200) {
@@ -57,16 +57,22 @@ const LoginWindow: React.FC = () => {
           message: `Login succesful. Redirecting to homepage...`,
           type: "success",
         },
-      ]);      
+      ]);
 
       const user = await response.json();
 
-      sessionStorage.setItem("loggedInUser", 
-        JSON.stringify({
-          token: user.token,
-          username: user.username
-        })
-      );
+
+      sessionStorage.setItem("loggedInUser",
+          user.username
+        );
+      sessionStorage.setItem("token",
+          user.token
+        );
+
+
+
+
+
       setTimeout(() => {
         //router.push('/courses'); -> don't use this because sidebar don't refresh in that case
         window.location.href = '/courses';
@@ -78,7 +84,7 @@ const LoginWindow: React.FC = () => {
           message: `Login didn't succeed. Please try again`,
           type: "error",
         },
-      ]);    
+      ]);
     }
 
   }
@@ -93,22 +99,22 @@ const LoginWindow: React.FC = () => {
             Log in to access your account
           </p>
           {statusMessages && (
-        <div className="row">
-          <ul className="list-none mb-3 mx-auto ">
-            {statusMessages.map(({ message, type }, index) => (
-              <li
-                key={index}
-                className={classNames({
-                  "text-red-800": type === "error",
-                  "text-green-800": type === "success",
-                })}
-              >
-                {message}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+            <div className="row">
+              <ul className="list-none mb-3 mx-auto ">
+                {statusMessages.map(({ message, type }, index) => (
+                  <li
+                    key={index}
+                    className={classNames({
+                      "text-red-800": type === "error",
+                      "text-green-800": type === "success",
+                    })}
+                  >
+                    {message}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <form onSubmit={handleSubmit}>
             <div>
               <label

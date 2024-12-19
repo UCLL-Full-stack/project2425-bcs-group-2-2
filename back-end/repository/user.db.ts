@@ -27,14 +27,12 @@ const getUserByUsername = async (username: string): Promise<User | null> => {
     });
 
     if (!userPrisma) {
-        console.log(`User with username "${username}" does not exist in the database.`);
         return null;
     }
     return User.from(userPrisma);
 };
 
 const createUser = async ({username, password, age, email, bio, creationDate}: User): Promise<User> => {
-    console.log("test")
     try {
         const newUserPrisma = await prisma.user.create({
             data: {
@@ -53,7 +51,6 @@ const createUser = async ({username, password, age, email, bio, creationDate}: U
     
         return User.from(newUserPrisma);
     } catch (error) {
-        console.log(error);
         throw new Error("Database error")
     }
 };
