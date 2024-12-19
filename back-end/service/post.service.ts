@@ -1,5 +1,4 @@
 // import postDb from '../repository/post.db';
-import postDb from '../repository/post.db';
 import { Post } from '../model/post';
 import { PostInput } from '../types';
 
