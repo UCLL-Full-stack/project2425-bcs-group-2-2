@@ -60,10 +60,10 @@ const userRouter = express.Router();
  *       500:
  *         description: Internal server error.
  */
-userRouter.get('/', async (req: Request , res: Response, next: NextFunction) => {
+userRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const request = req as Request & { auth: { username: string } };
-        const {username} = request.auth;
+        const { username } = request.auth;
         const user = await userService.getUserByUsername(username);
         res.status(200).json(user);
     } catch (error) {
@@ -72,11 +72,9 @@ userRouter.get('/', async (req: Request , res: Response, next: NextFunction) => 
     }
 });
 
-
-
 /**
  * @swagger
- * /users/{username}:
+ * /users/:
  *   delete:
  *     security:
  *       - bearerAuth: []
@@ -96,27 +94,26 @@ userRouter.get('/', async (req: Request , res: Response, next: NextFunction) => 
  *       500:
  *         description: Internal server error.
  */
-userRouter.delete('/', async (req: Request , res: Response, next: NextFunction) => {
+userRouter.delete('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-    const request = req as Request & { auth: { username: string } };
+        const request = req as Request & { auth: { username: string } };
 
-    const {username} = request.auth;
+        const { username } = request.auth;
         const user = await userService.deleteUserByUsername(username);
 
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
 
-            res.status(200).json(user);
-} catch (error) {
-    next(error);  
-}})
-    
-
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+});
 
 /**
  * @swagger
- * /users/{username}/{bio}:
+ * /users/:
  *   put:
  *     security:
  *       - bearerAuth: []
@@ -143,19 +140,62 @@ userRouter.delete('/', async (req: Request , res: Response, next: NextFunction) 
  *         description: Internal server error.
  */
 
-userRouter.put('/', async (req: Request , res: Response, next: NextFunction) => {
+userRouter.put('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const request = req as Request & { auth: { username: string } };
+        const { username } = request.auth;
+        const bio = request.body.bio;
+        const user = await userService.updateUserByUsername(username, bio);
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+});
 
-    const request = req as Request & { auth: { username: string} };
-    const {username} = request.auth;
-    const bio = request.body.bio; 
-    const user = await userService.updateUserByUsername(username, bio);
-    res.status(200).json(user);
-} catch (error) {
-    next(error);
-}})
-
-
+/**
+ * @swagger
+ * /users/signup:
+ *   post:
+ *     summary: Register a new user (signup).
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: The username of the new user.
+ *               password:
+ *                 type: string
+ *                 description: The password for the new user.
+ *               email:
+ *                 type: string
+ *                 description: The email address of the new user.
+ *               bio:
+ *                 type: string
+ *                 description: The biography of the user.
+ *               age:
+ *                 type: number
+ *                 description: The age of the new user.
+ *             required:
+ *               - username
+ *               - password
+ *               - email
+ *               - age
+ *     responses:
+ *       200:
+ *         description: User registered successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Invalid input data.
+ *       500:
+ *         description: Internal server error.
+ */
 userRouter.post('/signup', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = <UserInput>req.body;
@@ -203,6 +243,6 @@ userRouter.post('/login', async (req: Request, res: Response, next: NextFunction
     } catch (error) {
         next(error);
     }
-})
+});
 
 export { userRouter };
