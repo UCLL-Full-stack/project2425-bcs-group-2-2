@@ -110,7 +110,7 @@ userRouter.delete('/', async (req: Request , res: Response, next: NextFunction) 
             res.status(200).json(user);
 } catch (error) {
     next(error);  
-}}
+}})
     
 
 
@@ -142,6 +142,7 @@ userRouter.delete('/', async (req: Request , res: Response, next: NextFunction) 
  *       500:
  *         description: Internal server error.
  */
+
 userRouter.put('/', async (req: Request , res: Response, next: NextFunction) => {
     try {
 
@@ -203,3 +204,5 @@ userRouter.post('/login', async (req: Request, res: Response, next: NextFunction
         next(error);
     }
 })
+
+export { userRouter };
