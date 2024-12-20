@@ -12,9 +12,10 @@ model User {
     username        String   @unique
     password        String
     age             Int
-    email           String
+    email           String  @unique
     bio             String
     creationDate    DateTime @default(now())
+    role            String
     courses         Course[]
     posts           Post[]          
 }

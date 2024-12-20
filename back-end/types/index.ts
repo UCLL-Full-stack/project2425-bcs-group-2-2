@@ -14,6 +14,7 @@ type UserInput = {
     email: string;
     bio: string;
     creationDate: Date;
+    role: Role
     posts: PostInput[];
     courses: CourseInput[];
 };
@@ -37,11 +38,12 @@ type AnonymousFeedbackInput = {
     body: string 
 }
 
-
+type Role = 'guest' | 'premium' | 'regular';
 
 type AuthenticationResponse = {
     token: string;
     username: string;
+    role: string;
 }
 
-export { CourseInput, AuthenticationResponse, PostInput, UserInput, AnonymousFeedbackInput };
+export { Role, CourseInput, AuthenticationResponse, PostInput, UserInput, AnonymousFeedbackInput };

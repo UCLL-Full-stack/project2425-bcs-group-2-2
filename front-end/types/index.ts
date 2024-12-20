@@ -31,6 +31,12 @@ export type Course = {
     users: User[]
 };
 
+export type AnonymousFeedbackInput = {
+    id?: number;
+    subject: string;
+    body: string;
+}
+
 
 
 

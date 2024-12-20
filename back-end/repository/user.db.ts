@@ -5,15 +5,7 @@ import { Post } from '../model/post';
 
 const prisma = new PrismaClient();
 
-const getAllUsers = async (): Promise<User[]> => {
-    const usersPrisma = await prisma.user.findMany({
-        include: {
-            courses: true,      
-            posts: true,       
-        },
-    });
-    return usersPrisma.map((userPrisma)=>User.from(userPrisma))
-};
+
 
 
 
@@ -32,7 +24,7 @@ const getUserByUsername = async (username: string): Promise<User | null> => {
     return User.from(userPrisma);
 };
 
-const createUser = async ({username, password, age, email, bio, creationDate}: User): Promise<User> => {
+const createUser = async ({username, password, age, email, bio, creationDate, role}: User): Promise<User> => {
     try {
         const newUserPrisma = await prisma.user.create({
             data: {
@@ -42,6 +34,7 @@ const createUser = async ({username, password, age, email, bio, creationDate}: U
                 email,
                 bio : "",
                 creationDate,
+                role
             },
             include: {
                 courses: true,      
@@ -90,4 +83,4 @@ const updateUserByUsername = async (username: string, bio: string): Promise<User
 };
 
 
-export default {getAllUsers, createUser, getUserByUsername,deleteUserByUsername, updateUserByUsername};
+export default { createUser, getUserByUsername,deleteUserByUsername, updateUserByUsername};

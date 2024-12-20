@@ -36,18 +36,18 @@ const Sidebar: React.FC = () => {
 
       <nav className="mt-6">
         <ul className="flex flex-col space-y-2 px-4">
-          <li></li>
-          <li>
-            <Link href="/courses">
-              <p className="block py-2 px-4 rounded hover:bg-gray-700 transition">
-                Courses
-              </p>
-            </Link>
-          </li>
           <li>
             <Link href="/users">
               <p className="block py-2 px-4 rounded hover:bg-gray-700 transition">
                 Profile
+              </p>
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/courses">
+              <p className="block py-2 px-4 rounded hover:bg-gray-700 transition">
+                Courses
               </p>
             </Link>
           </li>

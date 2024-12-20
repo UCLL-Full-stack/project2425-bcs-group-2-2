@@ -8,6 +8,8 @@ const main = async () => {
     await prisma.user.deleteMany();
     await prisma.post.deleteMany();
     await prisma.course.deleteMany();
+    await prisma.anonymousFeedback.deleteMany();
+
 
     const courses = [
         {

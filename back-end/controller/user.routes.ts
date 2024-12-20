@@ -5,24 +5,11 @@ import { User } from '@prisma/client';
 
 const userRouter = express.Router();
 
-
-
-
-userRouter.get('/all', async (req: Request , res: Response) => {
+userRouter.get('/', async (req: Request , res: Response, next: NextFunction) => {
     try {
-        const users = await userService.getAllUsers();
-        res.status(200).json(users);
-    } catch (error) {
-        console.error('Error fetching users:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-userRouter.get('/:username', async (req, res, next: NextFunction) => {
-    try {
-        const username = req.params.username; 
-        const user = await userService.getUserByUsername(username)
-        
+        const request = req as Request & { auth: { username: string } };
+        const {username} = request.auth;
+        const user = await userService.getUserByUsername(username);
         res.status(200).json(user);
 
     } catch (error) {
@@ -31,18 +18,33 @@ userRouter.get('/:username', async (req, res, next: NextFunction) => {
     };
 });
 
-userRouter.delete('/:username', async (req, res, next: NextFunction) => {
-    const username = req.params.username;
+userRouter.delete('/', async (req: Request , res: Response, next: NextFunction) => {
+try {
+    const request = req as Request & { auth: { username: string } };
+
+    const {username} = request.auth;
     const user = await userService.deleteUserByUsername(username);
-    res.status(200).json(user);
+        res.status(200).json(user);
+} catch (error) {
+    next(error);
+
+    
+}
 })
 
-userRouter.put('/:username/:bio', async (req, res, next: NextFunction) => {
-    const username = req.params.username;
-    const bio = req.params.bio;
+userRouter.put('/', async (req: Request , res: Response, next: NextFunction) => {
+try {
 
-    const user = await userService.updateUserByUsername(username, bio);
-    res.status(200).json(user);
+    const request = req as Request & { auth: { username: string} };
+    const {username} = request.auth;
+    const bio = request.body.bio; 
+
+        const user = await userService.updateUserByUsername(username, bio);
+        res.status(200).json(user);
+} catch (error) {
+    next(error);
+
+}
 })
 
 

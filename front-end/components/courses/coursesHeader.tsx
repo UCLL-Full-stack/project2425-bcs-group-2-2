@@ -2,8 +2,12 @@ import Link from "next/link";
 import useSWR from "swr";
 import CourseService from "@/service/courseService";
 import { Course } from "@/types";
+import { useEffect, useState } from "react";
 
 const CourseHeader: React.FC = () => {
+  const [role, setRole] = useState<String>(null);
+
+
   const getCourses = async () => {
     const response = await CourseService.getAllCourses();
 
@@ -21,6 +25,14 @@ const CourseHeader: React.FC = () => {
     return await response.json();
   };
 
+
+  useEffect(() => {
+    const role = sessionStorage.getItem("role");
+    if (role) {
+      setRole(role);
+    }
+  }, []);
+
   const { data, isLoading, error } = useSWR(`getCoursesAll`, getCourses);
 
   return (
@@ -32,7 +44,13 @@ const CourseHeader: React.FC = () => {
       )}
 
       {isLoading && <p className="text-center text-gray-500">Loading...</p>}
-      {data && !error && <h1 className="flex text-3xl font-bold justify-center">All Courses</h1>}
+
+      {data && !error && <h1 className="flex text-3xl  font-bold justify-center">All Courses</h1>}
+      {(role === "regular") && (
+        <h2 className="text-lg font-semibold text-center mb-5 p-2 rounded-md shadow-sm">
+          If you want to see courses with difficulty level above 2, contact the admins.
+        </h2>
+      )}
 
       {data && !error && (
         <div className="grid grid-cols-2 gap-6 px-6">

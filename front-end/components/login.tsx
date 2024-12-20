@@ -67,13 +67,17 @@ const LoginWindow: React.FC = () => {
           user.token
         );
 
+      sessionStorage.setItem("role",
+          user.role
+        );
+
 
 
 
 
       setTimeout(() => {
         //router.push('/courses'); -> don't use this because sidebar don't refresh in that case
-        window.location.href = "/courses";
+        window.location.href = "/users";
       }, 2000);
     } else {
       setStatusMessages([

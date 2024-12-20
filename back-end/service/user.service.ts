@@ -11,7 +11,8 @@ const createUser = async ({
     password,
     age,
     email,
-    bio
+    bio,
+    role
 }: UserInput): Promise<User> => {
 
     
@@ -20,14 +21,11 @@ const createUser = async ({
     const hashedPassword = await bcrypt.hash(password, 12)
 
     const creationDate = new Date();
-    const user = new User({username, password: hashedPassword, age, email, bio, creationDate});
+    const user = new User({username, password: hashedPassword, age, email, bio, creationDate, role: "regular"});
     return await userDb.createUser(user);
 };
 
 
-
-
-const getAllUsers = async (): Promise<User[]> => userDb.getAllUsers();
 
 
 
@@ -61,11 +59,12 @@ const authenticate = async ({username, password}: UserInput): Promise<Authentica
 
 
     return {
-        token: generateJwtToken(username),
-        username
+        token: generateJwtToken({username, role: user.role }),
+        username,
+        role: user.role
     };
 }
 
-export default { getAllUsers,  createUser, getUserByUsername, authenticate, deleteUserByUsername, updateUserByUsername};
+export default {  createUser, getUserByUsername, authenticate, deleteUserByUsername, updateUserByUsername};
 
 

@@ -1,7 +1,10 @@
 import Head from "next/head";
 import CourseHeader from "@/components/courses/coursesHeader";
+import { useEffect, useState } from "react";
 
 const Courses: React.FC = () => {
+
+
   return (
     <>
       <Head>

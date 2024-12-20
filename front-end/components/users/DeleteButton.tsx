@@ -14,7 +14,7 @@ const DeleteButton: React.FC = () => {
     window.location.href = "/login";
 
     const username = sessionStorage.getItem("loggedInUser");
-    await UserService.deleteUser(username as string);
+    await UserService.deleteUser();
 
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("loggedInUser");

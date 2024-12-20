@@ -21,10 +21,10 @@ const signupUser = (user: User) => {
     })
 }
 
-const getUser =  (userUsername: string) => {
+const getUser =  () => {
     const token = sessionStorage.getItem("token");
 
-    return fetch(process.env.NEXT_PUBLIC_API_URL + `/users/${userUsername}`, {
+    return fetch(process.env.NEXT_PUBLIC_API_URL + `/users`, {
         method: 'GET',
         headers: {
             "Content-Type": "application/json",
@@ -33,10 +33,10 @@ const getUser =  (userUsername: string) => {
     });
 };
 
-const deleteUser =  (userUsername: string) => {
+const deleteUser =  () => {
     const token = sessionStorage.getItem("token");
 
-    return fetch(process.env.NEXT_PUBLIC_API_URL + `/users/${userUsername}`, {
+    return fetch(process.env.NEXT_PUBLIC_API_URL + `/users`, {
         method: 'DELETE',
         headers: {
             "Content-Type": "application/json",
@@ -45,16 +45,18 @@ const deleteUser =  (userUsername: string) => {
     });
 };
 
-const updateUser =  (userUsername: string, bio: string) => {
+const updateUser =  (bio: string) => {
     const token = sessionStorage.getItem("token");
 
 
-    return fetch(process.env.NEXT_PUBLIC_API_URL + `/users/${userUsername}/${bio}`, {
+    return fetch(process.env.NEXT_PUBLIC_API_URL + `/users`, {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
         },
+        body: JSON.stringify({bio}),
+
     });
 };
 
