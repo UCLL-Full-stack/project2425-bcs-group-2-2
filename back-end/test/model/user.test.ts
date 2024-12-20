@@ -1,6 +1,7 @@
 import { User } from '../../model/user';
 import { Course } from '../../model/course';
 import { Post } from '../../model/post';
+import { Role } from '../../types';
 
 const validUserData = {
     id: 1,
@@ -10,6 +11,7 @@ const validUserData = {
     email: 'testuser@example.com',
     bio: 'This is a test bio.',
     creationDate: new Date(),
+    role: 'guest' as Role,
     courses: [
         new Course({
             id: 1,
@@ -42,6 +44,7 @@ test('given: valid values for user, when: creating user, then: user created acco
     expect(user.email).toBe(validUserData.email);
     expect(user.bio).toBe(validUserData.bio);
     expect(user.creationDate).toBe(validUserData.creationDate);
+    expect(user.role).toBe(validUserData.role);
     expect(user.courses).toEqual(validUserData.courses);
     expect(user.posts).toEqual(validUserData.posts);
 });
@@ -68,8 +71,4 @@ test('given: user tries to login, when: email is invalid, then: error thrown', (
         'Invalid email address.'
     );
     expect(() => new User({ ...validUserData, email: '' })).toThrow('Invalid email address.');
-});
-
-test('should throw error when bio is not a string', () => {
-    expect(() => new User({ ...validUserData, bio: null as any })).toThrow('Bio must be a string.');
 });

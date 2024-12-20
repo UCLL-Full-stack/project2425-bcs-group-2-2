@@ -1,12 +1,7 @@
-import {
-    User as UserPrisma,
-    Post as PostPrisma,
-    Course as CoursePrisma
-} from '@prisma/client';
-import { Course } from "./course";
-import { Post } from "./post";
+import { User as UserPrisma, Post as PostPrisma, Course as CoursePrisma } from '@prisma/client';
+import { Course } from './course';
+import { Post } from './post';
 import { Role } from '../types';
-
 
 export class User {
     public id?: number;
@@ -100,8 +95,8 @@ export class User {
             bio,
             creationDate,
             role: role as Role,
-            courses: courses.map((course:any)=>Course.from(course)),
-            posts: posts.map((post:any)=>Post.from(post))
-    })
+            courses: courses.map((course: any) => Course.from(course)),
+            posts: posts.map((post: any) => Post.from(post)),
+        });
     }
 }

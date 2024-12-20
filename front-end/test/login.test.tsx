@@ -36,7 +36,7 @@ test("given: empty input, when: submitting form, then: validation errors are dis
 
 test("given: correct input, when: submitting form, then: token generated", async () => {
   render(<LoginWindow />);
-  const nameInput = screen.getByPlaceholderText("johndoe");
+  const nameInput = screen.getByPlaceholderText("Username");
   const passwordInput = screen.getByPlaceholderText("Password");
   const submitButton = screen.getByRole("button", { name: "Login" });
   fireEvent.change(nameInput, { target: { value: "test" } });
