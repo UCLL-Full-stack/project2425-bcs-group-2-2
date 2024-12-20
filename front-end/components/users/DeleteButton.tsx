@@ -18,6 +18,8 @@ const DeleteButton: React.FC = () => {
 
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("loggedInUser");
+    sessionStorage.removeItem("role");
+
   };
 
   return (

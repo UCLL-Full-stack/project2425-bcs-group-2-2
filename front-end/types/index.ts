@@ -14,6 +14,7 @@ export type User = {
     email?: string;
     bio?: string;
     creationDate?: Date;
+    role: Role
     posts?: Post[];
     courses?: Course[];
 };
@@ -31,14 +32,13 @@ export type Course = {
     users: User[]
 };
 
-export type AnonymousFeedbackInput = {
+export type AnonymousFeedback = {
     id?: number;
     subject: string;
     body: string;
 }
 
-
-
+export type Role = 'guest' | 'premium' | 'regular';
 
 
 export type StatusMessage = {

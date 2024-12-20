@@ -204,31 +204,67 @@ const main = async () => {
     });
 
     
-
-    const course1 = await prisma.course.create({
-        data: {
-            name: 'how to make a nice hat',
-            difficultyLevel: 2,
-            length: 120,
-            rating: 4,
-            description: 'Make a custom egg cosy!',
-            materials: [
-                'Yarn (100% wool, 50g/125m)',
-                '3½mm knitting needles',
-                'Scissors',
-                'Tapestry needle for weaving in ends',
-            ],
-            instructions: [
-                'Cast on 37 stitches.',
-                'Join to knit in the round, ensuring stitches are not twisted.',
-                'Shape the top with decrease stitches.',
-                'Cut the yarn, leaving a tail for finishing.',
-            ],
+    const users = [
+        {
+            username: 'John',
+            password: await bcrypt.hash('password1', 10),
+            age: 25,
+            email: 'user1@example.com',
+            bio:"",
+            role: 'regular',
         },
+        {
+            username: 'Pieter',
+            password: await bcrypt.hash('password2', 10),
+            age: 30,
+            email: 'user2@example.com',
+            bio:"",
+            role: 'premium',
+        },
+        {
+            username: 'Rob',
+            password: await bcrypt.hash('password3', 10),
+            age: 20,
+            email: 'user3@example.com',
+            bio:"",
+            role: 'guest',
+        },
+        {
+            username: 'Bob',
+            password: await bcrypt.hash('password4', 10),
+            age: 28,
+            email: 'user4@example.com',
+            bio:"",
+            role: 'regular',
+        },
+        {
+            username: 'Harry',
+            password: await bcrypt.hash('password5', 10),
+            age: 35,
+            email: 'user5@example.com',
+            bio:"",
+            role: 'premium',
+        },
+        {
+            username: 'Victor',
+            password: await bcrypt.hash('password6', 10),
+            age: 20,
+            email: 'user6@example.com',
+            bio:"",
+            role: 'guest',
+        }
+    ];
+
+    await prisma.user.createMany({
+        data: users,
     });
 
-  
+    
 };
+
+
+  
+
 
 (async () => {
     try {

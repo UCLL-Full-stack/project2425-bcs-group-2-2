@@ -77,7 +77,7 @@ const LoginWindow: React.FC = () => {
 
       setTimeout(() => {
         //router.push('/courses'); -> don't use this because sidebar don't refresh in that case
-        window.location.href = "/users";
+        window.location.href = "/";
       }, 2000);
     } else {
       setStatusMessages([
@@ -125,7 +125,7 @@ const LoginWindow: React.FC = () => {
                 type="name"
                 id="email"
                 name="email"
-                placeholder="johndoe"
+                placeholder="Username"
                 className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500"
                 onChange={(event) => setUsername(event.target.value)}
               />

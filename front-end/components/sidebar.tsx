@@ -3,12 +3,16 @@ import Link from "next/link";
 
 const Sidebar: React.FC = () => {
   const [loggedInUser, setLoggedInUser] = useState<String>(null);
+  const [role, setRole] = useState("");
+
+
+
 
   useEffect(()=> {
-
     const loggedInUser = sessionStorage.getItem("loggedInUser");
 
-    
+  
+
     if(loggedInUser){
       setLoggedInUser(loggedInUser);
     }
@@ -18,10 +22,9 @@ const Sidebar: React.FC = () => {
 
       sessionStorage.removeItem("loggedInUser");
       sessionStorage.removeItem("token");
-    
+      sessionStorage.removeItem("role");
 
-
-
+  
     setLoggedInUser(null);
   };
 
@@ -48,6 +51,14 @@ const Sidebar: React.FC = () => {
             <Link href="/courses">
               <p className="block py-2 px-4 rounded hover:bg-gray-700 transition">
                 Courses
+              </p>
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/feedback">
+              <p className="block py-2 px-4 rounded hover:bg-gray-700 transition">
+                Feedback
               </p>
             </Link>
           </li>
