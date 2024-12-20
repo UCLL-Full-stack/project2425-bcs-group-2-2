@@ -1,6 +1,7 @@
 import React from "react";
 import CourseDetails from "../components/courses/courseDetails";
 import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 
 window.React = React;
 
@@ -25,5 +26,8 @@ const course = {
 
 test("given: course exist, when: user navigates to courses page, then: course is passed to component and details shown", () => {
   render(<CourseDetails course={course} />);
-  expect(screen.getByText("Beginner knitted cast-on"));
+  expect(screen.getByText("Beginner knitted cast-on")).toBeInTheDocument();
+
+  expect(screen.getByText("Wooden needles")).toBeInTheDocument();
+  expect(screen.getByText("Yarn")).toBeInTheDocument();
 });

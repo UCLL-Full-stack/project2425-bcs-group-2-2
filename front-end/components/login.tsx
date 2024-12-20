@@ -59,17 +59,8 @@ const LoginWindow: React.FC = () => {
 
       const user = await response.json();
 
-
-      sessionStorage.setItem("loggedInUser",
-          user.username
-        );
-      sessionStorage.setItem("token",
-          user.token
-        );
-
-
-
-
+      sessionStorage.setItem("loggedInUser", user.username);
+      sessionStorage.setItem("token", user.token);
 
       setTimeout(() => {
         //router.push('/courses'); -> don't use this because sidebar don't refresh in that case
@@ -89,11 +80,9 @@ const LoginWindow: React.FC = () => {
       <div className="form-container flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-blue-200 text-black">
         <div className="max-w-md w-[90%] bg-white rounded-lg shadow-lg p-6 border border-gray-200">
           <h1 className="text-2xl font-bold text-center mb-4 text-gray-800">
-            Login
-          </h1>
-          <p className="text-center text-gray-600 mb-6">
             Log in to access your account
-          </p>
+          </h1>
+
           {statusMessages && (
             <div className="row">
               <ul className="list-none mb-3 mx-auto ">
