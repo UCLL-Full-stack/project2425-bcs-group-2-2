@@ -76,7 +76,7 @@ const LoginWindow: React.FC = () => {
 
 
       setTimeout(() => {
-        //router.push('/courses'); -> don't use this because sidebar don't refresh in that case
+        //router.push('/'); -> don't use this because sidebar don't refresh in that case
         window.location.href = "/";
       }, 2000);
     } else {
