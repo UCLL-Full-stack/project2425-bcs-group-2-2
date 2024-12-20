@@ -6,7 +6,7 @@ import { UnauthorizedError } from 'express-jwt';
 const getAllCourses = async (role: string): Promise<Course[]> => {
 
    
-    if (role === "premium") {
+    if (role === "premium" ) {
         const courses = await courseDb.getAllCourses();
         if (!courses) {
             throw new Error('No courses found.');

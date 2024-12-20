@@ -52,6 +52,8 @@ const CourseHeader: React.FC = () => {
         </h2>
       )}
 
+
+
       {data && !error && (
         <div className="grid grid-cols-2 gap-6 px-6">
           {data.map((course: Course) => (

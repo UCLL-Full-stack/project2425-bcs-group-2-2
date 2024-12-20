@@ -7,9 +7,11 @@ import swaggerUi from 'swagger-ui-express';
 import { courseRouter } from './controller/course.routes';
 import { postRouter } from './controller/post.routes';
 import { userRouter } from './controller/user.routes';
+
 import { Request, Response, NextFunction } from 'express';
 import { expressjwt } from 'express-jwt';
 import helmet from 'helmet';
+import { anonymous_feedbackRouter } from './controller/anonymous_feedback.routes';
 
 const app = express();
 app.use(helmet());
@@ -51,9 +53,12 @@ const swaggerOpts = {
     apis: ['./controller/*.routes.ts'],
 };
 
-// app.use("/posts", postRouter);
+app.use("/posts", postRouter);
 app.use('/courses', courseRouter);
 app.use('/users', userRouter);
+app.use('/anonymousFeedback', anonymous_feedbackRouter);
+
+
 // app.use("/settings", userSettingsRouter);
 
 const swaggerSpec = swaggerJSDoc(swaggerOpts);
