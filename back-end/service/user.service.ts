@@ -18,9 +18,6 @@ const createUser = async ({ username, password, age, email, bio }: UserInput): P
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
         throw new Error('Invalid email address.');
     }
-    if (bio && typeof bio !== 'string') {
-        throw new Error('Invalid bio. Bio must be a string.');
-    }
 
     const hashedPassword = await bcrypt.hash(password, 12);
 

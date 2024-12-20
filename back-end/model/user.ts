@@ -44,11 +44,6 @@ export class User {
             throw new Error('Invalid email address.');
         }
 
-        // Validation for bio
-        if (typeof user.bio !== 'string') {
-            throw new Error('Bio must be a string.');
-        }
-
         // Validation for courses and posts (optional but must be arrays if provided)
         if (user.courses && !Array.isArray(user.courses)) {
             throw new Error('Courses must be an array.');
